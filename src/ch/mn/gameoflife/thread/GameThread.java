@@ -23,7 +23,6 @@ public class GameThread extends Thread implements Runnable, Serializable {
 	public GameThread(MainFrame mainFrame) {
 		super();
 		this.mainFrame = mainFrame;
-		mainFrame.getGenerationCounterLabel();
 	}
 
 	@Override
@@ -31,7 +30,6 @@ public class GameThread extends Thread implements Runnable, Serializable {
 		super.run();
 		while (!interrupted()) {
 			while (!gameOver) {
-				mainFrame.updateUI();
 				while (!paused) {
 					mainFrame.updateUI();
 					cellController.countAliveNeighbours();
@@ -44,11 +42,13 @@ public class GameThread extends Thread implements Runnable, Serializable {
 						e.printStackTrace();
 					}
 				}
+				mainFrame.updateUI();
 			}
 			mainFrame.updateUI();
 		}
 	}
 
+	// Überprüft, ob keine Zellen mehr leben
 	private void checkGameOver() {
 		for (Cell[] celCol : cellController.getCells()) {
 			for (Cell cell : celCol) {

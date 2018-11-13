@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -49,15 +47,9 @@ public class MainFrame extends JFrame {
 		this.setSize(0, 800);
 		this.setBackground(Color.GRAY);
 		this.setResizable(false);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		this.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-
-		this.buildGui();
+		buildGui();
 		setVisible(true);
 		runGame();
 	}
@@ -118,14 +110,14 @@ public class MainFrame extends JFrame {
 				Cell cell = cells[row][col];
 				cell.setBackground(Color.BLACK);
 				cell.addMouseListener(new CellListener());
-
-				// drawGridLindes(row, col, cell);
-
+				// drawGridLindes(row, col, cell); // Optionales Design
 				gameGrid.add(cell);
 			}
 		}
 	}
 
+	// Trennt die einzelnen Zellen von einander mit einer schwarzen Border
+	// Muss Zellen am Rand unterscheiden um einzelne Borders nicht doppelt oder garnicht zu zeichnen 
 	@SuppressWarnings("unused")
 	private static void drawGridLindes(int row, int col, Cell cell) {
 		if (col > GameGridController.GRIDCOLS - 2 && row > GameGridController.GRIDROWS - 2) {
@@ -147,15 +139,7 @@ public class MainFrame extends JFrame {
 		return pauseStartButton;
 	}
 
-	public void setPausePlayButton(JButton pausePlayButton) {
-		this.pauseStartButton = pausePlayButton;
-	}
-
 	public JLabel getGenerationCounterLabel() {
 		return generationCounterLabel;
-	}
-
-	public void setGenerationCounterLabel(JLabel generationCounterLabel) {
-		this.generationCounterLabel = generationCounterLabel;
 	}
 }

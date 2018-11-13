@@ -26,11 +26,13 @@ public class CellController implements Serializable {
 			for (int col = 0; col < cells.length; col++) {
 				int aliveNeighbours = 0;
 
+				// Variabeln um den Zustand der Nachbarn zu analysieren 
 				int rowP = row + 1;
 				int rowM = row - 1;
 				int colP = col + 1;
 				int colM = col - 1;
 
+				// Falls rowM (also row-1) -1 wäre (somit ausserhalb vom Grid) werden diese Nachbarn nicht gezählt und als tot gewertet
 				if (rowM != -1) {
 					if (cells[rowM][col].isAlive()) aliveNeighbours++;
 					if (colM != -1 && cells[rowM][colM].isAlive()) aliveNeighbours++;
@@ -49,6 +51,7 @@ public class CellController implements Serializable {
 		}
 	}
 
+	// Implementierung der tatsächlichen Spielregeln
 	public void judgeCells() {
 		for (Cell[] celCol : cells) {
 			for (Cell cell : celCol) {
