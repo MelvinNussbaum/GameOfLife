@@ -10,7 +10,7 @@ import ch.mn.gameoflife.view.MainFrame;
 public class GameThread extends Thread implements Runnable, Serializable {
 	private static final long serialVersionUID = -3332944283162129482L;
 
-	public static final int GENERATION_TIME_MILLIS = 30;
+	public static final int GENERATION_TIME_MILLIS = 50;
 
 	private int generationCounter = 0;
 	private boolean paused = true;
