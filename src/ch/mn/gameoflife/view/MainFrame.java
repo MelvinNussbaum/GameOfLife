@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 	public MainFrame(String title) {
 		super();
 		this.setTitle(title);
-		this.setLayout(new FlowLayout(FlowLayout.CENTER));
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.setSize(0, 800);
 		this.setBackground(Color.GRAY);
 		this.setResizable(false);
@@ -88,6 +88,7 @@ public class MainFrame extends JFrame {
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 		controlPanel.setPreferredSize(new Dimension(300, this.getHeight()));
 		controlPanel.setBackground(Color.GRAY);
+		controlPanel.setBorder(BorderFactory.createRaisedBevelBorder());
 
 		controlPanel.add(Box.createVerticalStrut(20));
 		controlPanel.add(gameOfLifeLabel);
