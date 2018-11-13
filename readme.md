@@ -1,22 +1,22 @@
 <h1>Game of Life<h1>
 <h2>Abstract<h2>
-Das Spiel „Game of Life“ basiert auf der gleichnamigen Idee von John Horton Conway. Das Spielfeld besteht aus einem Gitter einzelner quadratischer Zellen. Jede Zelle kann tot oder lebendig sein. Vier simple Regeln entscheiden über diesen Zustand einer Zelle. Dies hängt von dem Zustand seinen di-rekten acht Nachbarn ab. 
+<p>Das Spiel „Game of Life“ basiert auf der gleichnamigen Idee von John Horton Conway. Das Spielfeld besteht aus einem Gitter einzelner quadratischer Zellen. Jede Zelle kann tot oder lebendig sein. Vier simple Regeln entscheiden über diesen Zustand einer Zelle. Dies hängt von dem Zustand seinen di-rekten acht Nachbarn ab.<p>
 <h2>Regeln<h2>
-Falls eine Zelle tot ist, kann sie nur wieder lebendig werden, wenn sie genau drei lebendige Nachbarn hat.
-Ist die Zelle lebendig, wird sie sterben, wenn weniger als 2 oder mehr als 3 Nachbarn hat. Beudeutet, dass eine lebendige Zelle mit 2 oder 3 Nachbarn ihren Zustand nicht verändern wird.
+<p>Falls eine Zelle tot ist, kann sie nur wieder lebendig werden, wenn sie genau drei lebendige Nachbarn hat.
+Ist die Zelle lebendig, wird sie sterben, wenn weniger als 2 oder mehr als 3 Nachbarn hat. Beudeutet, dass eine lebendige Zelle mit 2 oder 3 Nachbarn ihren Zustand nicht verändern wird.<p>
 <h2>Models<h2>
 <h3>Cell<h3>
-Das wichtigste Model ist die Zelle. Sie erbt von einem JPanel. Sie besitzt zwei Attribute:
-*	boolean isAlive : Hier wird sich den Zustand der Zelle gemerkt.
-*	int aliveNeighbours: Hier wird vermerkt, wie viele lebendige Nachbarn die Zelle hat.
+<p>Das wichtigste Model ist die Zelle. Sie erbt von einem JPanel. Sie besitzt zwei Attribute:<p>
+  *	boolean isAlive : Hier wird sich den Zustand der Zelle gemerkt.
+  *	int aliveNeighbours: Hier wird vermerkt, wie viele lebendige Nachbarn die Zelle hat.
 <h2>View<h2>
-MainFrame
+<h3>MainFrame<h3>
 Erbt von JFrame und besteht hauptsächlich aus: 
-*	JPanel controlPanel : Beinhaltet die zwei JButtons und JLabels, von hier wird der Spielfluss gesteuert.
-*	JButton pauseStartButton : Damit kann beim Klicken die Simulation unterbrochen/fortgesetzt werden.
-*	JButton resetButton : Tötet alle Zellen und setzt den „GenerationCounter auf 0. 
-*	JLabel generationCounterLabel : Inkrementiert sich bei jeder neuen Generation.
-*	GameGrid gameGrid : Erbt von JPanel und besitzt ein GridLayout. Hier werden die Zellen an-geordnet.
+  *	JPanel controlPanel : Beinhaltet die zwei JButtons und JLabels, von hier wird der Spielfluss gesteuert.
+  *	JButton pauseStartButton : Damit kann beim Klicken die Simulation unterbrochen/fortgesetzt werden.
+  *	JButton resetButton : Tötet alle Zellen und setzt den „GenerationCounter auf 0. 
+  *	JLabel generationCounterLabel : Inkrementiert sich bei jeder neuen Generation.
+  *	GameGrid gameGrid : Erbt von JPanel und besitzt ein GridLayout. Hier werden die Zellen an-geordnet.
 <h2>Controller<h2>
 CellController
 Dieser Controller initiiert in seinem Konstruktor einen 2-dimensionalen Cell-Array und füllt diesen auf. Diese Klasse enthält die meiste Logik des Spiels.
