@@ -50,12 +50,6 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		buildGui();
-		setVisible(true);
-		runGame();
-	}
-
-	public void runGame() {
-		gameThread.start();
 	}
 
 	private void buildGui() {
@@ -116,24 +110,6 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	// Trennt die einzelnen Zellen von einander mit einer schwarzen Border
-	// Muss Zellen am Rand unterscheiden um einzelne Borders nicht doppelt oder garnicht zu zeichnen 
-	@SuppressWarnings("unused")
-	private static void drawGridLindes(int row, int col, Cell cell) {
-		if (col > GameGridController.GRIDCOLS - 2 && row > GameGridController.GRIDROWS - 2) {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-		} else if (row > GameGridController.GRIDROWS - 2) {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
-		} else if (col > GameGridController.GRIDCOLS - 2) {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
-		} else {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
-		}
-	}
-
-	public static void repaintCell(Cell cell, Color color) {
-		cell.setBackground(color);
-	}
 
 	public JButton getPausePlayButton() {
 		return pauseStartButton;
@@ -141,5 +117,9 @@ public class MainFrame extends JFrame {
 
 	public JLabel getGenerationCounterLabel() {
 		return generationCounterLabel;
+	}
+
+	public GameThread getGameThread() {
+		return gameThread;
 	}
 }
