@@ -1,10 +1,9 @@
-package ch.mn.gaemoflife.view.swing;
+package ch.mn.gameoflife.view.swing;
 
 import java.awt.Color;
 
 import javax.swing.JPanel;
 
-import ch.mn.gaemoflife.view.interfaces.ICell;
 import ch.mn.gaemoflife.view.interfaces.ICellView;
 import ch.mn.gameoflife.model.Cell;
 

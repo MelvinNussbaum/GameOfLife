@@ -6,8 +6,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 import ch.mn.gaemoflife.view.interfaces.IMainFrame;
-import ch.mn.gaemoflife.view.swing.SwingCell;
 import ch.mn.gameoflife.controller.GameGridController;
+import ch.mn.gameoflife.view.swing.SwingCell;
 
 public abstract class AbstractSwingMainFrame extends JFrame implements IMainFrame {
 	private static final long serialVersionUID = 1280637062592072627L;
