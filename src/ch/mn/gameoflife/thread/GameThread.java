@@ -5,7 +5,6 @@ import java.io.Serializable;
 import ch.mn.gaemoflife.view.interfaces.IMainFrame;
 import ch.mn.gameoflife.controller.CellController;
 import ch.mn.gameoflife.controller.GameGridController;
-import ch.mn.gameoflife.controller.RuleController;
 import ch.mn.gameoflife.model.Cell;
 
 public class GameThread extends Thread implements Runnable, Serializable {
@@ -20,7 +19,6 @@ public class GameThread extends Thread implements Runnable, Serializable {
 	private IMainFrame mainFrame;
 	private GameGridController gridController = new GameGridController();
 	private CellController cellController = new CellController();
-	private RuleController ruleController = new RuleController();
 
 	public GameThread(IMainFrame mainFrame) {
 		super();

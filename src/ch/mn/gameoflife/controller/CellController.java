@@ -3,6 +3,7 @@ package ch.mn.gameoflife.controller;
 import java.io.Serializable;
 
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.utils.Rule;
 
 public class CellController implements Serializable {
 	private static final long serialVersionUID = 2047207213066121831L;
@@ -52,24 +53,9 @@ public class CellController implements Serializable {
 	public void judgeCells() {
 		for (Cell[] celCol : cells) {
 			for (Cell cell : celCol) {
-				cell.setAlive(rule(cell));
+				cell.setAlive(Rule.rule(cell));
 			}
 		}
-	}
-	
-
-	// Implementierung der tatsächlichen Spielregeln
-	public boolean rule(Cell cell) {
-		if (!(cell.isAlive())) {
-			if (cell.getAliveNeighbours() == 3) {
-				return true;
-			}
-		} else {
-			if (cell.getAliveNeighbours() < 2 || cell.getAliveNeighbours() > 3) {
-				return false;
-			}
-		}
-		return cell.isAlive();
 	}
 
 	public void killAllCells() {
