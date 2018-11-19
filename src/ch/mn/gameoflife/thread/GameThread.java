@@ -7,8 +7,6 @@ import ch.mn.gameoflife.controller.CellController;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.controller.RuleController;
 import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.view.swing.SwingMainFrame;
-import ch.mn.gameoflife.view.swing.SwingCell;
 
 public class GameThread extends Thread implements Runnable, Serializable {
 	private static final long serialVersionUID = -3332944283162129482L;
