@@ -1,11 +1,11 @@
 package ch.mn.gameoflife;
 
-import ch.mn.gameoflife.view.swing.MainFrame;
+import ch.mn.gameoflife.view.swing.SwingMainFrame;
 
 public class Main {
 
 	private static void initializeGame() {
-		MainFrame mainFrame = new MainFrame("Game of Life");
+		SwingMainFrame mainFrame = new SwingMainFrame("Game of Life");
 		mainFrame.setVisible(true);
 		mainFrame.getGameThread().start();
 	}

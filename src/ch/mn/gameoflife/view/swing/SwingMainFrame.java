@@ -21,7 +21,7 @@ import ch.mn.gameoflife.listener.swing.CellListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
 
-public class MainFrame extends AbstractSwingMainFrame {
+public class SwingMainFrame extends AbstractSwingMainFrame {
 	private static final long serialVersionUID = 2978608857717274514L;
 
 	private GameThread gameThread = new GameThread(this);
@@ -41,7 +41,7 @@ public class MainFrame extends AbstractSwingMainFrame {
 	private ButtonListener buttonListener = new ButtonListener(gameThread);
 	private CellListener cellListener = new CellListener();
 
-	public MainFrame(String title) {
+	public SwingMainFrame(String title) {
 		super();
 		this.setTitle(title);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
