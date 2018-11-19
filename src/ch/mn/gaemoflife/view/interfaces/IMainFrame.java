@@ -7,7 +7,4 @@ public interface IMainFrame {
 	void buildGui();
 	
 	void updateUI();
-	
-	void drawGrid();
-	
 }

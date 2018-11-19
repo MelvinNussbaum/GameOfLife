@@ -58,7 +58,7 @@ public class MainFrame extends AbstractSwingMainFrame {
 		gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
 		gameGrid.setPreferredSize(new Dimension(getHeight(), getHeight()));
 
-		drawGrid();
+		drawGrid(cells, swingCells, gameGrid, cellListener);
 
 		pauseStartButton.addActionListener(buttonListener);
 		resetButton.addActionListener(buttonListener);
@@ -105,20 +105,6 @@ public class MainFrame extends AbstractSwingMainFrame {
 		pauseStartButton.setText(gameThread.isPaused() ? "Start" : "Pause");
 		pack();
 	}
-
-	@Override
-	public void drawGrid() {
-		for (int row = 0; row < cells.length; row++) {
-			for (int col = 0; col < cells.length; col++) {
-				swingCells[row][col] = new SwingCell(cells[row][col]);
-				SwingCell swingCell = swingCells[row][col];
-				swingCell.setBackground(Color.BLACK);
-				swingCell.addMouseListener(cellListener);
-			//  IMainFrame.drawGridLindes(row, col, cell); // Optionales Design
-				gameGrid.add(swingCell);
-			}
-		}
-	}
 	
 	public JButton getPausePlayButton() {
 		return pauseStartButton;
@@ -131,4 +117,5 @@ public class MainFrame extends AbstractSwingMainFrame {
 	public GameThread getGameThread() {
 		return gameThread;
 	}
+
 }
