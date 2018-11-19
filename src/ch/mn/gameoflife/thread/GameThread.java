@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import ch.mn.gameoflife.controller.CellController;
 import ch.mn.gameoflife.controller.GameGridController;
-import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.view.MainFrame;
+import ch.mn.gameoflife.model.SwingCell;
+import ch.mn.gameoflife.view.swing.MainFrame;
 
 public class GameThread extends Thread implements Runnable, Serializable {
 	private static final long serialVersionUID = -3332944283162129482L;
@@ -50,8 +50,8 @@ public class GameThread extends Thread implements Runnable, Serializable {
 
 	// Überprüft, ob keine Zellen mehr leben
 	private void checkGameOver() {
-		for (Cell[] celCol : cellController.getCells()) {
-			for (Cell cell : celCol) {
+		for (SwingCell[] celCol : cellController.getCells()) {
+			for (SwingCell cell : celCol) {
 				if (cell.isAlive()) return;
 			}
 		}

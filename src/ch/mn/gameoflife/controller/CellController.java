@@ -1,21 +1,19 @@
 package ch.mn.gameoflife.controller;
 
-import java.awt.Color;
 import java.io.Serializable;
 
-import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.view.MainFrame;
+import ch.mn.gameoflife.model.SwingCell;
 
 public class CellController implements Serializable {
 	private static final long serialVersionUID = 2047207213066121831L;
 
-	Cell[][] cells = new Cell[GameGridController.GRIDROWS][GameGridController.GRIDCOLS];
+	SwingCell[][] cells = new SwingCell[GameGridController.GRIDROWS][GameGridController.GRIDCOLS];
 
 	public CellController() {
 		super();
 		for (int row = 0; row < cells.length; row++) {
 			for (int col = 0; col < cells.length; col++) {
-				cells[row][col] = new Cell();
+				cells[row][col] = new SwingCell();
 			}
 		}
 	}
@@ -53,8 +51,8 @@ public class CellController implements Serializable {
 
 	// Implementierung der tatsächlichen Spielregeln
 	public void judgeCells() {
-		for (Cell[] celCol : cells) {
-			for (Cell cell : celCol) {
+		for (SwingCell[] celCol : cells) {
+			for (SwingCell cell : celCol) {
 				if (!(cell.isAlive())) {
 					if (cell.getAliveNeighbours() == 3) reviveCell(cell);
 				} else {
@@ -64,29 +62,29 @@ public class CellController implements Serializable {
 		}
 	}
 
-	private static void killCell(Cell cell) {
+	private static void killCell(SwingCell cell) {
 		cell.setAlive(false);
-		MainFrame.repaintCell(cell, Color.BLACK);
+		mainFrame.repaintCell(cell);
 	}
 
 	public void killAllCells() {
-		for (Cell[] cellCol : cells) {
-			for (Cell cell : cellCol) {
+		for (SwingCell[] cellCol : cells) {
+			for (SwingCell cell : cellCol) {
 				killCell(cell);
 			}
 		}
 	}
 
-	private static void reviveCell(Cell cell) {
+	private static void reviveCell(SwingCell cell) {
 		cell.setAlive(true);
-		MainFrame.repaintCell(cell, Color.WHITE);
+		mainFrame.repaintCell(cell);
 	}
 
-	public Cell[][] getCells() {
+	public SwingCell[][] getCells() {
 		return cells;
 	}
 
-	public void setCells(Cell[][] cells) {
+	public void setCells(SwingCell[][] cells) {
 		this.cells = cells;
 	}
 }

@@ -1,6 +1,6 @@
 package ch.mn.gameoflife;
 
-import ch.mn.gameoflife.view.MainFrame;
+import ch.mn.gameoflife.view.swing.MainFrame;
 
 public class Main {
 

@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.model.SwingCell;
 
 public class CellListener extends MouseAdapter {
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-		Cell source = (Cell) me.getSource();
+		SwingCell source = (SwingCell) me.getSource();
 		if (source.isAlive()) {
 			source.setBackground(Color.BLACK);
 			source.setAlive(false);
