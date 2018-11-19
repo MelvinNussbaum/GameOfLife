@@ -1,4 +1,4 @@
-package ch.mn.gameoflife.listener;
+package ch.mn.gameoflife.listener.swing;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

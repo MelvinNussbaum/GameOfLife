@@ -16,8 +16,8 @@ import javax.swing.SwingConstants;
 
 import ch.mn.gaemoflife.view.abstracts.AbstractSwingMainFrame;
 import ch.mn.gameoflife.controller.GameGridController;
-import ch.mn.gameoflife.listener.ButtonListener;
-import ch.mn.gameoflife.listener.CellListener;
+import ch.mn.gameoflife.listener.swing.ButtonListener;
+import ch.mn.gameoflife.listener.swing.CellListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
 

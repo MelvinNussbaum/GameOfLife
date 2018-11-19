@@ -1,4 +1,4 @@
-package ch.mn.gameoflife.listener;
+package ch.mn.gameoflife.listener.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +20,7 @@ public class ButtonListener implements ActionListener, Serializable	{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton source = (JButton) e.getSource();
+		JButton source = e.getSource();
 
 		switch (source.getText()) {
 		case "Reset":
