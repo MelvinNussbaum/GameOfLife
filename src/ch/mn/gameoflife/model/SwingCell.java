@@ -1,5 +1,7 @@
 package ch.mn.gameoflife.model;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
 
 import ch.mn.gaemoflife.view.interfaces.ICell;
@@ -13,6 +15,15 @@ public class SwingCell extends JPanel implements ICell{
 	public SwingCell() {
 		super();
 		this.isAlive = false;
+	}
+	
+	@Override
+	public void repaint() {
+		if (isAlive) {
+			setBackground(Color.WHITE);
+		} else {
+			setBackground(Color.BLACK);
+		}
 	}
 
 	@Override
