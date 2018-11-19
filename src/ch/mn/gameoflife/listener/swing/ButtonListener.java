@@ -22,19 +22,19 @@ public class ButtonListener implements ActionListener, Serializable	{
 	public void actionPerformed(ActionEvent e) {
 		JButton source = (JButton) e.getSource();
 
-		switch (source.getText()) {
-		case "Reset":
+		switch (source.getActionCommand()) {
+		case "reset":
 			gameThread.getCellController().killAllCells();
 			gameThread.setGenerationCounter(0);
 			if (gameThread.isPaused()) break;
 			//$FALL-THROUGH$
-		case "Start":
+		case "start":
 			if (gameThread.isGameOver()) {
 				gameThread.setGameOver(false);
 				gameThread.setGenerationCounter(0);
 			}
 			//$FALL-THROUGH$
-		case "Pause":
+		case "pause":
 			gameThread.setPaused(!gameThread.isPaused());
 			break;
 		default:

@@ -60,6 +60,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
 		drawGrid(cells, swingCells, gameGrid, cellListener);
 
+		pauseStartButton.setActionCommand("start");
+		resetButton.setActionCommand("reset");
 		pauseStartButton.addActionListener(buttonListener);
 		resetButton.addActionListener(buttonListener);
 
@@ -103,6 +105,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 		}
 		generationCounterLabel.setText("Generation: " + gameThread.getGenerationCounter());
 		pauseStartButton.setText(gameThread.isPaused() ? "Start" : "Pause");
+		pauseStartButton.setActionCommand(gameThread.isPaused() ? "start" : "pause");
 		pack();
 	}
 	
