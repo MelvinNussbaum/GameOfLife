@@ -124,15 +124,6 @@ public class MainFrame extends JFrame implements IMainFrame {
 			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
 		}
 	}
-	
-	@Override
-	public void repaintCell(SwingCell cell) {
-		if (cell.isAlive()) {
-			cell.setBackground(Color.WHITE);
-		} else {
-			cell.setBackground(Color.BLACK);
-		}
-	}
 
 	public JButton getPausePlayButton() {
 		return pauseStartButton;

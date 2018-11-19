@@ -64,7 +64,7 @@ public class CellController implements Serializable {
 
 	private static void killCell(SwingCell cell) {
 		cell.setAlive(false);
-		cell.repaint();
+		cell.repaintCell();
 	}
 
 	public void killAllCells() {
@@ -77,7 +77,7 @@ public class CellController implements Serializable {
 
 	private static void reviveCell(SwingCell cell) {
 		cell.setAlive(true);
-		cell.repaint();
+		cell.repaintCell();
 	}
 
 	public SwingCell[][] getCells() {

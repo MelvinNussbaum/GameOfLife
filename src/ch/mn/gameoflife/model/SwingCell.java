@@ -18,7 +18,7 @@ public class SwingCell extends JPanel implements ICell{
 	}
 	
 	@Override
-	public void repaint() {
+	public void repaintCell() {
 		if (isAlive) {
 			setBackground(Color.WHITE);
 		} else {
