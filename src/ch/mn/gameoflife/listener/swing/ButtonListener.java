@@ -20,7 +20,7 @@ public class ButtonListener implements ActionListener, Serializable	{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton source = e.getSource();
+		JButton source = (JButton) e.getSource();
 
 		switch (source.getText()) {
 		case "Reset":
