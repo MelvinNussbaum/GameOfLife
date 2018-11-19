@@ -3,7 +3,7 @@ package ch.mn.gameoflife.listener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import ch.mn.gameoflife.model.SwingCell;
+import ch.mn.gaemoflife.view.swing.SwingCell;
 
 public class CellListener extends MouseAdapter {
 

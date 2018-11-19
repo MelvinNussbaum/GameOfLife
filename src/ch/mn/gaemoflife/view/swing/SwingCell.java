@@ -1,4 +1,4 @@
-package ch.mn.gameoflife.model;
+package ch.mn.gaemoflife.view.swing;
 
 import java.awt.Color;
 
@@ -9,12 +9,11 @@ import ch.mn.gaemoflife.view.interfaces.ICell;
 public class SwingCell extends JPanel implements ICell{
 	private static final long serialVersionUID = 1L;
 
-	boolean isAlive;
+	boolean isAlive = false;
 	int aliveNeighbours;
 
 	public SwingCell() {
 		super();
-		this.isAlive = false;
 	}
 	
 	@Override

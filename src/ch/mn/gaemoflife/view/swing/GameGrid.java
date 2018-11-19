@@ -1,4 +1,4 @@
-package ch.mn.gameoflife.model;
+package ch.mn.gaemoflife.view.swing;
 
 import javax.swing.JPanel;
 

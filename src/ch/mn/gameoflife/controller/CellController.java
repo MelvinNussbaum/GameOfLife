@@ -2,7 +2,7 @@ package ch.mn.gameoflife.controller;
 
 import java.io.Serializable;
 
-import ch.mn.gameoflife.model.SwingCell;
+import ch.mn.gaemoflife.view.swing.SwingCell;
 
 public class CellController implements Serializable {
 	private static final long serialVersionUID = 2047207213066121831L;

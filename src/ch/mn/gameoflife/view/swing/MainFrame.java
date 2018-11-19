@@ -10,20 +10,19 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import ch.mn.gaemoflife.view.interfaces.IMainFrame;
+import ch.mn.gaemoflife.view.abstracts.AbstractSwingMainFrame;
+import ch.mn.gaemoflife.view.swing.GameGrid;
+import ch.mn.gaemoflife.view.swing.SwingCell;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.ButtonListener;
 import ch.mn.gameoflife.listener.CellListener;
-import ch.mn.gameoflife.model.SwingCell;
-import ch.mn.gameoflife.model.GameGrid;
 import ch.mn.gameoflife.thread.GameThread;
 
-public class MainFrame extends JFrame implements IMainFrame {
+public class MainFrame extends AbstractSwingMainFrame {
 	private static final long serialVersionUID = 2978608857717274514L;
 
 	private GameThread gameThread = new GameThread(this);
@@ -54,7 +53,8 @@ public class MainFrame extends JFrame implements IMainFrame {
 		buildGui();
 	}
 
-	private void buildGui() {
+	@Override
+	public void buildGui() {
 		gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
 		gameGrid.setPreferredSize(new Dimension(getHeight(), getHeight()));
 
@@ -94,13 +94,15 @@ public class MainFrame extends JFrame implements IMainFrame {
 		pack();
 	}
 
+	@Override
 	public void updateUI() {
 		generationCounterLabel.setText("Generation: " + gameThread.getGenerationCounter());
 		pauseStartButton.setText(gameThread.isPaused() ? "Start" : "Pause");
 		pack();
 	}
 
-	private void drawGrid() {
+	@Override
+	public void drawGrid() {
 		for (int row = 0; row < cells.length; row++) {
 			for (int col = 0; col < cells.length; col++) {
 				SwingCell cell = cells[row][col];
@@ -112,19 +114,6 @@ public class MainFrame extends JFrame implements IMainFrame {
 		}
 	}
 	
-	@Override
-	public void drawGridLines(int row, int col, SwingCell cell) {
-		if (col > GameGridController.GRIDCOLS - 2 && row > GameGridController.GRIDROWS - 2) {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-		} else if (row > GameGridController.GRIDROWS - 2) {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
-		} else if (col > GameGridController.GRIDCOLS - 2) {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
-		} else {
-			cell.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
-		}
-	}
-
 	public JButton getPausePlayButton() {
 		return pauseStartButton;
 	}

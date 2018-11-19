@@ -2,7 +2,7 @@ package ch.mn.gameoflife.controller;
 
 import java.io.Serializable;
 
-import ch.mn.gameoflife.model.GameGrid;
+import ch.mn.gaemoflife.view.swing.GameGrid;
 
 public class GameGridController implements Serializable {
 	private static final long serialVersionUID = -4225020371706191879L;
