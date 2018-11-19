@@ -1,6 +1,8 @@
 package ch.mn.gaemoflife.view.interfaces;
 
 public interface ICell {
+	
+	public void repaint();
 
 	public boolean isAlive();
 
