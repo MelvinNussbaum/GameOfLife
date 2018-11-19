@@ -49,17 +49,27 @@ public class CellController implements Serializable {
 		}
 	}
 
-	// Implementierung der tatsächlichen Spielregeln
 	public void judgeCells() {
 		for (Cell[] celCol : cells) {
 			for (Cell cell : celCol) {
-				if (!(cell.isAlive())) {
-					if (cell.getAliveNeighbours() == 3) cell.setAlive(true);
-				} else {
-					if (cell.getAliveNeighbours() < 2 || cell.getAliveNeighbours() > 3) cell.setAlive(false);
-				}
+				cell.setAlive(rule(cell));
 			}
 		}
+	}
+	
+
+	// Implementierung der tatsächlichen Spielregeln
+	public boolean rule(Cell cell) {
+		if (!(cell.isAlive())) {
+			if (cell.getAliveNeighbours() == 3) {
+				return true;
+			}
+		} else {
+			if (cell.getAliveNeighbours() < 2 || cell.getAliveNeighbours() > 3) {
+				return false;
+			}
+		}
+		return cell.isAlive();
 	}
 
 	public void killAllCells() {
