@@ -27,11 +27,10 @@ public class MainFrame extends AbstractSwingMainFrame {
 	private GameThread gameThread = new GameThread(this);
 
 	private Cell[][] cells = gameThread.getCellController().getCells();
-	private GameGrid gameGrid = gameThread.getGridController().getGameGrid();
-	
 	private SwingCell[][] swingCells = new SwingCell[GameGridController.GRIDROWS][GameGridController.GRIDCOLS];
 
 	private JPanel controlPanel = new JPanel();
+	private JPanel gameGrid = new JPanel(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS)); 
 
 	private JButton pauseStartButton = new JButton("Start");
 	private JButton resetButton = new JButton("Reset");
