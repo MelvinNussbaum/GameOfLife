@@ -54,9 +54,9 @@ public class CellController implements Serializable {
 		for (Cell[] celCol : cells) {
 			for (Cell cell : celCol) {
 				if (!(cell.isAlive())) {
-					if (cell.getAliveNeighbours() == 3) cell.setAlive(false);
+					if (cell.getAliveNeighbours() == 3) cell.setAlive(true);
 				} else {
-					if (cell.getAliveNeighbours() < 2 || cell.getAliveNeighbours() > 3) cell.setAlive(true);
+					if (cell.getAliveNeighbours() < 2 || cell.getAliveNeighbours() > 3) cell.setAlive(false);
 				}
 			}
 		}

@@ -11,7 +11,7 @@ import ch.mn.gameoflife.view.swing.MainFrame;
 public class GameThread extends Thread implements Runnable, Serializable {
 	private static final long serialVersionUID = -3332944283162129482L;
 
-	public static final int GENERATION_TIME_MILLIS = 50;
+	public static final int GENERATION_TIME_MILLIS = 100;
 
 	private int generationCounter = 0;
 	private boolean paused = true;
@@ -53,7 +53,9 @@ public class GameThread extends Thread implements Runnable, Serializable {
 	private void checkGameOver() {
 		for (Cell[] celCol : cellController.getCells()) {
 			for (Cell cell : celCol) {
-				if (cell.isAlive()) return;
+				if (cell.isAlive()) {
+					return;
+				}
 			}
 		}
 		gameOver = true;

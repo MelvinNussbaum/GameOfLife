@@ -30,6 +30,8 @@ public class MainFrame extends AbstractSwingMainFrame {
 
 	private Cell[][] cells = gameThread.getCellController().getCells();
 	private GameGrid gameGrid = gameThread.getGridController().getGameGrid();
+	
+	private SwingCell[][] swingCells = new SwingCell[GameGridController.GRIDROWS][GameGridController.GRIDCOLS];
 
 	private JPanel controlPanel = new JPanel();
 
@@ -97,6 +99,11 @@ public class MainFrame extends AbstractSwingMainFrame {
 
 	@Override
 	public void updateUI() {
+		for (SwingCell[] swiCelCol : swingCells) {
+			for (SwingCell swingCell : swiCelCol) {
+				swingCell.repaintCell();
+			}
+		}
 		generationCounterLabel.setText("Generation: " + gameThread.getGenerationCounter());
 		pauseStartButton.setText(gameThread.isPaused() ? "Start" : "Pause");
 		pack();
@@ -106,11 +113,11 @@ public class MainFrame extends AbstractSwingMainFrame {
 	public void drawGrid() {
 		for (int row = 0; row < cells.length; row++) {
 			for (int col = 0; col < cells.length; col++) {
-				Cell cell = cells[row][col];
-				SwingCell swingCell = new SwingCell(cell);
+				swingCells[row][col] = new SwingCell(cells[row][col]);
+				SwingCell swingCell = swingCells[row][col];
 				swingCell.setBackground(Color.BLACK);
 				swingCell.addMouseListener(cellListener);
-				// IMainFrame.drawGridLindes(row, col, cell); // Optionales Design
+			//  IMainFrame.drawGridLindes(row, col, cell); // Optionales Design
 				gameGrid.add(swingCell);
 			}
 		}
