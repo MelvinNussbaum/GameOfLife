@@ -2,18 +2,18 @@ package ch.mn.gameoflife.controller;
 
 import java.io.Serializable;
 
-import ch.mn.gaemoflife.view.swing.SwingCell;
+import ch.mn.gameoflife.model.Cell;
 
 public class CellController implements Serializable {
 	private static final long serialVersionUID = 2047207213066121831L;
 
-	SwingCell[][] cells = new SwingCell[GameGridController.GRIDROWS][GameGridController.GRIDCOLS];
+	Cell[][] cells = new Cell[GameGridController.GRIDROWS][GameGridController.GRIDCOLS];
 
 	public CellController() {
 		super();
 		for (int row = 0; row < cells.length; row++) {
 			for (int col = 0; col < cells.length; col++) {
-				cells[row][col] = new SwingCell();
+				cells[row][col] = new Cell();
 			}
 		}
 	}
@@ -51,40 +51,30 @@ public class CellController implements Serializable {
 
 	// Implementierung der tatsächlichen Spielregeln
 	public void judgeCells() {
-		for (SwingCell[] celCol : cells) {
-			for (SwingCell cell : celCol) {
+		for (Cell[] celCol : cells) {
+			for (Cell cell : celCol) {
 				if (!(cell.isAlive())) {
-					if (cell.getAliveNeighbours() == 3) reviveCell(cell);
+					if (cell.getAliveNeighbours() == 3) cell.setAlive(false);
 				} else {
-					if (cell.getAliveNeighbours() < 2 || cell.getAliveNeighbours() > 3) killCell(cell);
+					if (cell.getAliveNeighbours() < 2 || cell.getAliveNeighbours() > 3) cell.setAlive(true);
 				}
 			}
 		}
 	}
 
-	private static void killCell(SwingCell cell) {
-		cell.setAlive(false);
-		cell.repaintCell();
-	}
-
 	public void killAllCells() {
-		for (SwingCell[] cellCol : cells) {
-			for (SwingCell cell : cellCol) {
-				killCell(cell);
+		for (Cell[] cellCol : cells) {
+			for (Cell cell : cellCol) {
+				cell.setAlive(false);
 			}
 		}
 	}
 
-	private static void reviveCell(SwingCell cell) {
-		cell.setAlive(true);
-		cell.repaintCell();
-	}
-
-	public SwingCell[][] getCells() {
+	public Cell[][] getCells() {
 		return cells;
 	}
 
-	public void setCells(SwingCell[][] cells) {
+	public void setCells(Cell[][] cells) {
 		this.cells = cells;
 	}
 }

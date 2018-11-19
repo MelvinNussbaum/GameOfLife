@@ -5,43 +5,29 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 import ch.mn.gaemoflife.view.interfaces.ICell;
+import ch.mn.gaemoflife.view.interfaces.ICellView;
+import ch.mn.gameoflife.model.Cell;
 
-public class SwingCell extends JPanel implements ICell{
+public class SwingCell extends JPanel implements ICellView {
 	private static final long serialVersionUID = 1L;
-
-	boolean isAlive = false;
-	int aliveNeighbours;
-
-	public SwingCell() {
+	
+	private Cell cellModel;
+	
+	public SwingCell(Cell cell) {
 		super();
+		this.cellModel = cell;
 	}
 	
 	@Override
 	public void repaintCell() {
-		if (isAlive) {
-			setBackground(Color.WHITE);
-		} else {
-			setBackground(Color.BLACK);
-		}
+		setBackground(cellModel.isAlive() ? Color.WHITE : Color.BLACK);
 	}
 
-	@Override
-	public boolean isAlive() {
-		return isAlive;
+	public Cell getCellModel() {
+		return cellModel;
 	}
 
-	@Override
-	public void setAlive(boolean isAlive) {
-		this.isAlive = isAlive;
-	}
-
-	@Override
-	public int getAliveNeighbours() {
-		return aliveNeighbours;
-	}
-
-	@Override
-	public void setAliveNeighbours(int aliveNeighbours) {
-		this.aliveNeighbours = aliveNeighbours;
+	public void setCellModel(Cell cellModel) {
+		this.cellModel = cellModel;
 	}
 }

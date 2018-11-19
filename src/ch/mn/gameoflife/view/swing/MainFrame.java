@@ -20,6 +20,7 @@ import ch.mn.gaemoflife.view.swing.SwingCell;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.ButtonListener;
 import ch.mn.gameoflife.listener.CellListener;
+import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
 
 public class MainFrame extends AbstractSwingMainFrame {
@@ -27,7 +28,7 @@ public class MainFrame extends AbstractSwingMainFrame {
 
 	private GameThread gameThread = new GameThread(this);
 
-	private SwingCell[][] cells = gameThread.getCellController().getCells();
+	private Cell[][] cells = gameThread.getCellController().getCells();
 	private GameGrid gameGrid = gameThread.getGridController().getGameGrid();
 
 	private JPanel controlPanel = new JPanel();
@@ -105,11 +106,12 @@ public class MainFrame extends AbstractSwingMainFrame {
 	public void drawGrid() {
 		for (int row = 0; row < cells.length; row++) {
 			for (int col = 0; col < cells.length; col++) {
-				SwingCell cell = cells[row][col];
-				cell.setBackground(Color.BLACK);
-				cell.addMouseListener(cellListener);
+				Cell cell = cells[row][col];
+				SwingCell swingCell = new SwingCell(cell);
+				swingCell.setBackground(Color.BLACK);
+				swingCell.addMouseListener(cellListener);
 				// IMainFrame.drawGridLindes(row, col, cell); // Optionales Design
-				gameGrid.add(cell);
+				gameGrid.add(swingCell);
 			}
 		}
 	}
