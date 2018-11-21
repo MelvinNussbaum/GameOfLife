@@ -31,11 +31,11 @@ public class GameThread extends Thread implements Runnable, Serializable {
 		while (!interrupted()) {
 			while (!gameOver) {
 				while (!paused) {
-					mainFrame.updateUI();
 					cellController.countAliveNeighbours();
 					cellController.judgeCells();
 					generationCounter++;
 					checkGameOver();
+					mainFrame.updateUI();
 					try {
 						sleep(GENERATION_TIME_MILLIS);
 					} catch (InterruptedException e) {
