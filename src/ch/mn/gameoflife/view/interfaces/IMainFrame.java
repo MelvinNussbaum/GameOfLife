@@ -1,4 +1,4 @@
-package ch.mn.gaemoflife.view.interfaces;
+package ch.mn.gameoflife.view.interfaces;
 
 
 

@@ -1,4 +1,4 @@
-package ch.mn.gaemoflife.view.abstracts;
+package ch.mn.gameoflife.view.abstracts;
 
 import java.awt.Color;
 
@@ -6,10 +6,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import ch.mn.gaemoflife.view.interfaces.IMainFrame;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.CellListener;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.view.interfaces.IMainFrame;
 import ch.mn.gameoflife.view.swing.SwingCell;
 
 public abstract class AbstractSwingMainFrame extends JFrame implements IMainFrame {

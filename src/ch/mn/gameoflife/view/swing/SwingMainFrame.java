@@ -14,12 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import ch.mn.gaemoflife.view.abstracts.AbstractSwingMainFrame;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.ButtonListener;
 import ch.mn.gameoflife.listener.swing.CellListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
+import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
 
 public class SwingMainFrame extends AbstractSwingMainFrame {
 	private static final long serialVersionUID = 2978608857717274514L;

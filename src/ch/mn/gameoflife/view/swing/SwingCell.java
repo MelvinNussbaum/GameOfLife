@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
-import ch.mn.gaemoflife.view.interfaces.ICellView;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.view.interfaces.ICellView;
 
 public class SwingCell extends JPanel implements ICellView {
 	private static final long serialVersionUID = 1L;
