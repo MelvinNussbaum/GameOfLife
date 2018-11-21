@@ -37,9 +37,9 @@ public class GameThread extends Thread implements Runnable, Serializable {
 					checkGameOver();
 					mainFrame.updateUI();
 					try {
-						sleep(GENERATION_TIME_MILLIS);
+						wait(GENERATION_TIME_MILLIS);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						interrupt();
 					}
 				}
 				mainFrame.updateUI();
