@@ -4,7 +4,7 @@ package ch.mn.gameoflife.view.interfaces;
 
 public interface IMainFrame {
 	
-	void buildGui();
+	void buildGUI();
 	
-	void updateUI();
+	void updateGUI();
 }

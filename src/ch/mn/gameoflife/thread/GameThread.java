@@ -35,16 +35,16 @@ public class GameThread extends Thread implements Runnable, Serializable {
 					cellController.judgeCells();
 					generationCounter++;
 					checkGameOver();
-					mainFrame.updateUI();
+					mainFrame.updateGUI();
 					try {
 						wait(GENERATION_TIME_MILLIS);
 					} catch (InterruptedException e) {
 						interrupt();
 					}
 				}
-				mainFrame.updateUI();
+				mainFrame.updateGUI();
 			}
-			mainFrame.updateUI();
+			mainFrame.updateGUI();
 		}
 	}
 

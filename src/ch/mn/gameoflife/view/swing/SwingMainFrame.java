@@ -50,11 +50,11 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		buildGui();
+		buildGUI();
 	}
 
 	@Override
-	public void buildGui() {
+	public void buildGUI() {
 		gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
 		gameGrid.setPreferredSize(new Dimension(getHeight(), getHeight()));
 
@@ -97,7 +97,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 	}
 
 	@Override
-	public void updateUI() {
+	public void updateGUI() {
 		for (SwingCell[] swiCelCol : swingCells) {
 			for (SwingCell swingCell : swiCelCol) {
 				swingCell.repaintCell();
