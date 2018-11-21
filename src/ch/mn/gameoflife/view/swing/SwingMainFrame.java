@@ -5,7 +5,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.text.ParseException;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -31,9 +34,11 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
 	private JPanel controlPanel = new JPanel();
 	private JPanel gameGrid = new JPanel(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS)); 
+	
 
 	private JButton pauseStartButton = new JButton("Start");
 	private JButton resetButton = new JButton("Reset");
+	private JButton newRuleButton = new JButton("neue Regeln");
 
 	private JLabel gameOfLifeLabel = new JLabel("Game of Life");
 	private JLabel generationCounterLabel = new JLabel("Generation: 0", SwingConstants.CENTER);
@@ -59,26 +64,40 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 		gameGrid.setPreferredSize(new Dimension(getHeight(), getHeight()));
 
 		drawGrid(cells, swingCells, gameGrid, cellListener);
-
-		pauseStartButton.setActionCommand("start");
-		resetButton.setActionCommand("reset");
-		pauseStartButton.addActionListener(buttonListener);
-		resetButton.addActionListener(buttonListener);
-
-		gameOfLifeLabel.setAlignmentX(CENTER_ALIGNMENT);
-		pauseStartButton.setAlignmentX(CENTER_ALIGNMENT);
-		resetButton.setAlignmentX(CENTER_ALIGNMENT);
-		generationCounterLabel.setAlignmentX(CENTER_ALIGNMENT);
-
-		gameOfLifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
-		pauseStartButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-		resetButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
-		generationCounterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
-
+		
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 		controlPanel.setPreferredSize(new Dimension(300, this.getHeight()));
 		controlPanel.setBackground(Color.GRAY);
 		controlPanel.setBorder(BorderFactory.createRaisedBevelBorder());
+
+		pauseStartButton.setActionCommand("start");
+		resetButton.setActionCommand("reset");
+		newRuleButton.setActionCommand("newRule");
+		pauseStartButton.addActionListener(buttonListener);
+		resetButton.addActionListener(buttonListener);
+		newRuleButton.addActionListener(new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				try {
+					SwingNewRule swingNewRule = new SwingNewRule();
+					swingNewRule.setVisible(true);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		gameOfLifeLabel.setAlignmentX(CENTER_ALIGNMENT);
+		pauseStartButton.setAlignmentX(CENTER_ALIGNMENT);
+		resetButton.setAlignmentX(CENTER_ALIGNMENT);
+		newRuleButton.setAlignmentX(CENTER_ALIGNMENT);
+		generationCounterLabel.setAlignmentX(CENTER_ALIGNMENT);
+		
+		gameOfLifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
+		pauseStartButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		resetButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+		newRuleButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		generationCounterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
 
 		controlPanel.add(Box.createVerticalStrut(20));
 		controlPanel.add(gameOfLifeLabel);
@@ -86,6 +105,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 		controlPanel.add(pauseStartButton);
 		controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		controlPanel.add(resetButton);
+		controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		controlPanel.add(newRuleButton);
 		controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		controlPanel.add(generationCounterLabel);
 		controlPanel.add(Box.createVerticalGlue());
