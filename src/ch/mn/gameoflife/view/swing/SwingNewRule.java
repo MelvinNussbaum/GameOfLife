@@ -5,11 +5,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.text.ParseException;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
@@ -36,15 +36,15 @@ public class SwingNewRule extends JDialog {
 	private JFormattedTextField deadRuleLessField = new JFormattedTextField(maskFormatter);
 	
 	
-	public SwingNewRule() throws ParseException {
-		super();
+	public SwingNewRule(JFrame parent, boolean modal) throws ParseException {
+		super(parent, modal);
 		this.setTitle("Neue Regel");
 		this.setResizable(false);
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		
-		
 		buildGUI();
 		pack();
+		setLocationRelativeTo(parent);
 	}
 	
 	private void buildGUI() {

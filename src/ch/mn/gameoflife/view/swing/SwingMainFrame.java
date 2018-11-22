@@ -79,7 +79,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				try {
-					SwingNewRule swingNewRule = new SwingNewRule();
+					SwingNewRule swingNewRule = new SwingNewRule(SwingMainFrame.this, true);
 					swingNewRule.setVisible(true);
 				} catch (ParseException e) {
 					e.printStackTrace();
