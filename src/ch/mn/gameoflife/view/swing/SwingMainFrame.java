@@ -40,7 +40,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private JButton resetButton = new JButton("Reset");
 
-    private JButton newRuleButton = new JButton("neue Regeln");
+    private JButton newRuleButton = new JButton("new rules");
 
     private JLabel gameOfLifeLabel = new JLabel("Game of Life");
 
