@@ -20,7 +20,7 @@ import ch.mn.gameoflife.view.swing.SwingCell;
 public class GridListener extends MouseAdapter {
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
 
         JPanel grid = (JPanel) e.getSource();
         JPanel swingCell = (JPanel) grid.getComponentAt(e.getPoint());
@@ -29,7 +29,7 @@ public class GridListener extends MouseAdapter {
         }
         Cell cell = ((SwingCell) swingCell).getCellModel();
         cell.setAlive(!cell.isAlive());
-        super.mouseClicked(e);
+        super.mousePressed(e);
     }
 
 }
