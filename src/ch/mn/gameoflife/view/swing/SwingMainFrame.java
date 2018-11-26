@@ -5,10 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.text.ParseException;
 
-import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -20,6 +17,7 @@ import javax.swing.SwingConstants;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.ButtonListener;
 import ch.mn.gameoflife.listener.swing.CellListener;
+import ch.mn.gameoflife.listener.swing.RuleButtonListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
 import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
@@ -79,22 +77,10 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         pauseStartButton.setActionCommand("start");
         resetButton.setActionCommand("reset");
-        newRuleButton.setActionCommand("newRule");
+        newRuleButton.setActionCommand("newRules");
         pauseStartButton.addActionListener(buttonListener);
         resetButton.addActionListener(buttonListener);
-        newRuleButton.addActionListener(new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-
-                try {
-                    SwingNewRule swingNewRule = new SwingNewRule(SwingMainFrame.this, true);
-                    swingNewRule.setVisible(true);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        newRuleButton.addActionListener(new RuleButtonListener(this));
 
         gameOfLifeLabel.setAlignmentX(CENTER_ALIGNMENT);
         pauseStartButton.setAlignmentX(CENTER_ALIGNMENT);
