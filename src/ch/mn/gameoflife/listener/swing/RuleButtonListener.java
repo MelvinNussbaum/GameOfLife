@@ -44,10 +44,15 @@ public class RuleButtonListener implements ActionListener {
                 }
                 break;
             case "apply":
-                Integer aliveGreater = Integer.parseInt(((SwingNewRule) parent).getAliveRuleGreaterField().getText());
-                Integer aliveLess = Integer.parseInt(((SwingNewRule) parent).getAliveRuleGreaterField().getText());
-                Integer deadGreater = Integer.parseInt(((SwingNewRule) parent).getAliveRuleGreaterField().getText());
-                Integer deadLess = Integer.parseInt(((SwingNewRule) parent).getAliveRuleGreaterField().getText());
+                String aliveGreaterObject = ((SwingNewRule) parent).getAliveRuleGreaterField().getText();
+                String aliveLessObject = ((SwingNewRule) parent).getAliveRuleLessField().getText();
+                String deadGreaterObject = ((SwingNewRule) parent).getDeadRuleGreaterField().getText();
+                String deadLessObject = ((SwingNewRule) parent).getDeadRuleLessField().getText();
+
+                Integer aliveGreater = Integer.parseInt(aliveGreaterObject);
+                Integer aliveLess = Integer.parseInt(aliveLessObject);
+                Integer deadGreater = Integer.parseInt(deadGreaterObject);
+                Integer deadLess = Integer.parseInt(deadLessObject);
 
                 Rule.setAliveCellsNeighboursGreaterThan(aliveGreater);
                 Rule.setAliveCellsNeighboursLessThan(aliveLess);
