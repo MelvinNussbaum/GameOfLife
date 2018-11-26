@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.ButtonListener;
-import ch.mn.gameoflife.listener.swing.CellListener;
+import ch.mn.gameoflife.listener.swing.GridListener;
 import ch.mn.gameoflife.listener.swing.RuleButtonListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
@@ -48,8 +48,6 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private ButtonListener buttonListener = new ButtonListener(gameThread);
 
-    private CellListener cellListener = new CellListener();
-
     public SwingMainFrame(String title) {
         super();
         this.setTitle(title);
@@ -67,8 +65,9 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
         gameGrid.setPreferredSize(new Dimension(getHeight(), getHeight()));
+        gameGrid.addMouseListener(new GridListener());
 
-        drawGrid(cells, swingCells, gameGrid, cellListener);
+        drawGrid(cells, swingCells, gameGrid);
 
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
         controlPanel.setPreferredSize(new Dimension(300, this.getHeight()));
