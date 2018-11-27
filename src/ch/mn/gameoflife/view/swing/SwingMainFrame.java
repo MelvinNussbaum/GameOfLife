@@ -48,6 +48,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private ButtonListener buttonListener = new ButtonListener(gameThread);
 
+    private GridListener gridListener = new GridListener();
+
     public SwingMainFrame(String title) {
         super();
         this.setTitle(title);
@@ -73,7 +75,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
         gameGrid.setPreferredSize(new Dimension(getHeight(), getHeight()));
-        gameGrid.addMouseListener(new GridListener());
+        gameGrid.addMouseListener(gridListener);
+        gameGrid.addMouseMotionListener(gridListener);
 
         drawGrid(cells, swingCells, gameGrid);
 
