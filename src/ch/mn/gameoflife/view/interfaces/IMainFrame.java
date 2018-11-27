@@ -9,15 +9,13 @@ public interface IMainFrame {
 
     void updateGUI();
 
-    default ResourceBundle internationalize() {
-
-        String language = Locale.getDefault().getLanguage();
-        String country = Locale.getDefault().getCountry();
-
-        Locale currentLocale = new Locale(language, country);
+    default ResourceBundle switchLanguage(Locale currentLocale) {
 
         ResourceBundle rBundle = ResourceBundle.getBundle("MessagesBundle", currentLocale);
-
+        if (!(currentLocale.getLanguage().equals(rBundle.getLocale().getLanguage()))) {
+            currentLocale = new Locale("en");
+            rBundle = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+        }
         return rBundle;
     }
 }
