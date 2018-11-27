@@ -36,15 +36,15 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private JPanel gameGrid = new JPanel(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
 
-    private JButton pauseStartButton = new JButton("Start");
+    private JButton pauseStartButton = new JButton();
 
-    private JButton resetButton = new JButton("Reset");
+    private JButton resetButton = new JButton();
 
-    private JButton newRuleButton = new JButton("new rules");
+    private JButton newRuleButton = new JButton();
 
-    private JLabel gameOfLifeLabel = new JLabel("Game of Life");
+    private JLabel gameOfLifeLabel = new JLabel();
 
-    private JLabel generationCounterLabel = new JLabel("Generation: 0", SwingConstants.CENTER);
+    private JLabel generationCounterLabel = new JLabel("", SwingConstants.CENTER);
 
     private ButtonListener buttonListener = new ButtonListener(gameThread);
 
@@ -57,11 +57,19 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        rBundle = internationalize();
+        currentLocale = rBundle.getLocale();
         buildGUI();
     }
 
     @Override
     public void buildGUI() {
+
+        gameOfLifeLabel.setText(rBundle.getString("gameOfLife"));
+        newRuleButton.setText(rBundle.getString("newRules"));
+        resetButton.setText(rBundle.getString("reset"));
+        pauseStartButton.setText(rBundle.getString("start"));
+        generationCounterLabel.setText(rBundle.getString("generation") + ": 0");
 
         gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
         gameGrid.setPreferredSize(new Dimension(getHeight(), getHeight()));
@@ -119,8 +127,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
                 swingCell.repaintCell();
             }
         }
-        generationCounterLabel.setText("Generation: " + gameThread.getGenerationCounter());
-        pauseStartButton.setText(gameThread.isPaused() ? "Start" : "Pause");
+        generationCounterLabel.setText(rBundle.getString("generation") + ": " + gameThread.getGenerationCounter());
+        pauseStartButton.setText(gameThread.isPaused() ? rBundle.getString("start") : rBundle.getString("pause"));
         pauseStartButton.setActionCommand(gameThread.isPaused() ? "start" : "pause");
         pack();
     }
