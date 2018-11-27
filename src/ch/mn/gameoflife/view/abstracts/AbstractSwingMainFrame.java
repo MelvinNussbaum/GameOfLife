@@ -17,7 +17,7 @@ public abstract class AbstractSwingMainFrame extends JFrame implements IMainFram
 
     private static final long serialVersionUID = 1280637062592072627L;
 
-    protected Locale currentLocale;
+    protected Locale currentLocale = Locale.getDefault();
 
     protected ResourceBundle rBundle;
 

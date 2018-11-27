@@ -57,7 +57,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        rBundle = internationalize();
+        rBundle = switchLanguage(currentLocale);
         currentLocale = rBundle.getLocale();
         buildGUI();
     }
