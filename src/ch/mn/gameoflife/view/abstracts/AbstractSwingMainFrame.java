@@ -1,6 +1,8 @@
 package ch.mn.gameoflife.view.abstracts;
 
 import java.awt.Color;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -14,6 +16,10 @@ import ch.mn.gameoflife.view.swing.SwingCell;
 public abstract class AbstractSwingMainFrame extends JFrame implements IMainFrame {
 
     private static final long serialVersionUID = 1280637062592072627L;
+
+    protected Locale currentLocale;
+
+    protected ResourceBundle rBundle;
 
     public void drawGridLines(int row, int col, SwingCell swingCell) {
 
