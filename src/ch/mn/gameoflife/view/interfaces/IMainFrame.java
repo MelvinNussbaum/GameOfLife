@@ -11,7 +11,7 @@ public interface IMainFrame {
 
     default ResourceBundle switchLanguage(Locale currentLocale) {
 
-        ResourceBundle rBundle = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+        ResourceBundle rBundle = ResourceBundle.getBundle("ch.mn.gameoflife.properties.MessagesBundle", currentLocale);
         if (!(currentLocale.getLanguage().equals(rBundle.getLocale().getLanguage()))) {
             currentLocale = new Locale("en");
             rBundle = ResourceBundle.getBundle("MessagesBundle", currentLocale);
