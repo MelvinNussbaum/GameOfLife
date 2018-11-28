@@ -11,7 +11,7 @@ public class GameThread extends Thread implements Runnable, Serializable {
 
     private static final long serialVersionUID = -3332944283162129482L;
 
-    public static final int GENERATION_TIME_MILLIS = 100;
+    public static final int GENERATION_TIME_MILLIS = 1000 / 18;
 
     private int generationCounter = 0;
 
