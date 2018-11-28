@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.text.ParseException;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -11,18 +12,20 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 import ch.mn.gameoflife.listener.swing.RuleButtonListener;
 
-public class SwingNewRule extends JDialog {
+public class SwingNewRuleDialog extends JDialog {
 
     private static final long serialVersionUID = -649758692822963496L;
 
     private final String mask = "#";
+
+    private ResourceBundle rBundle;
 
     private MaskFormatter maskFormatter = new MaskFormatter(mask);
 
@@ -36,17 +39,13 @@ public class SwingNewRule extends JDialog {
 
     private JPanel buttonPanel = new JPanel(new BorderLayout(10, 0));
 
-    private JLabel aliveRuleGreaterLabel = new JLabel(
-        "<HTML><b>Lebende Zellen</b> bleiben am leben wenn Anzahl lebende Nachbarn <b>grösser als</b></HTML>: ");
+    private JLabel aliveRuleGreaterLabel = new JLabel();
 
-    private JLabel aliveRuleLessLabel = new JLabel(
-        "<HTML><b>Lebende Zellen</b> bleiben am leben wenn Anzahl lebende Nachbarn <b>kleiner als</b></HTML>: ");
+    private JLabel aliveRuleLessLabel = new JLabel();
 
-    private JLabel deadRuleGreaterLabel = new JLabel(
-        "<HTML><b>Tote Zellen</b> auferstehen wenn Anzahl lebende Nachbarn <b>grösser als</b></HTML>: ");
+    private JLabel deadRuleGreaterLabel = new JLabel();
 
-    private JLabel deadRuleLessLabel = new JLabel(
-        "<HTML><b>Tote Zellen</b> auferstehen wenn Anzahl lebende Nachbarn <b>kleiner als</b></HTML>: ");
+    private JLabel deadRuleLessLabel = new JLabel();
 
     private JFormattedTextField aliveRuleGreaterField = new JFormattedTextField(maskFormatter);
 
@@ -56,13 +55,14 @@ public class SwingNewRule extends JDialog {
 
     private JFormattedTextField deadRuleLessField = new JFormattedTextField(maskFormatter);
 
-    private JButton sendRulesButton = new JButton("apply");
+    private JButton sendRulesButton = new JButton();
 
-    public SwingNewRule(JFrame parent, boolean modal) throws ParseException {
+    public SwingNewRuleDialog(SwingMainFrame parent, boolean modal) throws ParseException {
         super(parent, modal);
         this.setTitle("Neue Regel");
         this.setResizable(true);
         this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+        this.rBundle = parent.getResourceBundle();
 
         buildGUI();
         pack();
@@ -71,14 +71,25 @@ public class SwingNewRule extends JDialog {
 
     private void buildGUI() {
 
+        sendRulesButton.setText(rBundle.getString("apply"));
         sendRulesButton.setActionCommand("apply");
         sendRulesButton.addActionListener(new RuleButtonListener(this));
+
+        aliveRuleGreaterLabel.setText(rBundle.getString("aliveRuleGreater"));
+        aliveRuleLessLabel.setText(rBundle.getString("aliveRuleLess"));
+        deadRuleGreaterLabel.setText(rBundle.getString("deadRuleGreater"));
+        deadRuleLessLabel.setText(rBundle.getString("deadRuleLess"));
 
         aliveRuleGreaterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         aliveRuleLessLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         deadRuleGreaterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         deadRuleLessLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         sendRulesButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+
+        aliveRuleGreaterField.setHorizontalAlignment(SwingConstants.CENTER);
+        aliveRuleLessField.setHorizontalAlignment(SwingConstants.CENTER);
+        deadRuleGreaterField.setHorizontalAlignment(SwingConstants.CENTER);
+        deadRuleLessField.setHorizontalAlignment(SwingConstants.CENTER);
 
         aliveRuleGreaterField.setPreferredSize(new Dimension(25, 25));
         aliveRuleLessField.setPreferredSize(new Dimension(25, 25));
