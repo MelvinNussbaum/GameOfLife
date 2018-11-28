@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 import ch.mn.gameoflife.listener.swing.RuleButtonListener;
+import ch.mn.gameoflife.utils.Rule;
 
 public class SwingNewRuleDialog extends JDialog {
 
@@ -95,6 +96,11 @@ public class SwingNewRuleDialog extends JDialog {
         aliveRuleLessField.setPreferredSize(new Dimension(25, 25));
         deadRuleGreaterField.setPreferredSize(new Dimension(25, 25));
         deadRuleLessField.setPreferredSize(new Dimension(25, 25));
+
+        aliveRuleGreaterField.setText("" + Rule.getAliveCellsNeighboursGreaterThan());
+        aliveRuleLessField.setText("" + Rule.getAliveCellsNeighboursLessThan());
+        deadRuleGreaterField.setText("" + Rule.getDeadCellsNeighboursGreaterThan());
+        deadRuleLessField.setText("" + Rule.getDeadCellsNeighboursLessThan());
 
         aliveRuleGreaterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
         aliveRuleLessPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
