@@ -93,33 +93,43 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         pauseStartButton.setActionCommand("start");
         resetButton.setActionCommand("reset");
         newRuleButton.setActionCommand("newRules");
+        settingsButton.setActionCommand("newSettings");
         pauseStartButton.addActionListener(gameActionListener);
         resetButton.addActionListener(gameActionListener);
         newRuleButton.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent ae) {
 
                 try {
-                    SwingNewRuleDialog swingNewRule = new SwingNewRuleDialog(SwingMainFrame.this, true);
-                    swingNewRule.setVisible(true);
-                } catch (ParseException e1) {
-                    e1.printStackTrace();
+                    new SwingNewRuleDialog(SwingMainFrame.this, true);
+                } catch (ParseException pe) {
+                    pe.printStackTrace();
                 }
             }
         });
-        settingsButton.addActionListener(gameActionListener);
+        settingsButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                new SwingSettingsDialog(SwingMainFrame.this, true);
+            }
+
+        });
 
         gameOfLifeLabel.setAlignmentX(CENTER_ALIGNMENT);
         pauseStartButton.setAlignmentX(CENTER_ALIGNMENT);
         resetButton.setAlignmentX(CENTER_ALIGNMENT);
         newRuleButton.setAlignmentX(CENTER_ALIGNMENT);
+        settingsButton.setAlignmentX(CENTER_ALIGNMENT);
         generationCounterLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         gameOfLifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
         pauseStartButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         resetButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
         newRuleButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+        settingsButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         generationCounterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
 
         controlPanel.add(Box.createVerticalStrut(20));
@@ -130,6 +140,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         controlPanel.add(resetButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(newRuleButton);
+        controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        controlPanel.add(settingsButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(generationCounterLabel);
         controlPanel.add(Box.createVerticalGlue());
