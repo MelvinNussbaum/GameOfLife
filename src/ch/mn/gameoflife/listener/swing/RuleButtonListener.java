@@ -15,10 +15,10 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 import ch.mn.gameoflife.utils.Rule;
-import ch.mn.gameoflife.view.swing.SwingNewRule;
+import ch.mn.gameoflife.view.swing.SwingMainFrame;
+import ch.mn.gameoflife.view.swing.SwingNewRuleDialog;
 
 public class RuleButtonListener implements ActionListener {
 
@@ -37,17 +37,17 @@ public class RuleButtonListener implements ActionListener {
         switch (source.getActionCommand()) {
             case "newRules":
                 try {
-                    SwingNewRule swingNewRule = new SwingNewRule((JFrame) parent, true);
+                    SwingNewRuleDialog swingNewRule = new SwingNewRuleDialog((SwingMainFrame) parent, true);
                     swingNewRule.setVisible(true);
                 } catch (ParseException pe) {
                     pe.printStackTrace();
                 }
                 break;
             case "apply":
-                String aliveGreaterObject = ((SwingNewRule) parent).getAliveRuleGreaterField().getText();
-                String aliveLessObject = ((SwingNewRule) parent).getAliveRuleLessField().getText();
-                String deadGreaterObject = ((SwingNewRule) parent).getDeadRuleGreaterField().getText();
-                String deadLessObject = ((SwingNewRule) parent).getDeadRuleLessField().getText();
+                String aliveGreaterObject = ((SwingNewRuleDialog) parent).getAliveRuleGreaterField().getText();
+                String aliveLessObject = ((SwingNewRuleDialog) parent).getAliveRuleLessField().getText();
+                String deadGreaterObject = ((SwingNewRuleDialog) parent).getDeadRuleGreaterField().getText();
+                String deadLessObject = ((SwingNewRuleDialog) parent).getDeadRuleLessField().getText();
 
                 Integer aliveGreater = Integer.parseInt(aliveGreaterObject);
                 Integer aliveLess = Integer.parseInt(aliveLessObject);
@@ -59,7 +59,7 @@ public class RuleButtonListener implements ActionListener {
                 Rule.setDeadCellsNeighboursGreaterThan(deadGreater);
                 Rule.setDeadCellsNeighboursLessThan(deadLess);
 
-                ((SwingNewRule) parent).dispose();
+                ((SwingNewRuleDialog) parent).dispose();
                 break;
             default:
                 break;
