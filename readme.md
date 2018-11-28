@@ -1,6 +1,6 @@
 # Game of Life
 ## Abstract
-Das Spiel „Game of Life“ basiert auf der gleichnamigen Idee von John Horton Conway. Das Spielfeld besteht aus einem Gitter einzelner quadratischer Zellen. Jede Zelle kann tot oder lebendig sein. Vier simple Regeln entscheiden über diesen Zustand einer Zelle. Dies hängt von dem Zustand seinen di-rekten acht Nachbarn ab.
+Das Spiel „Game of Life“ basiert auf der gleichnamigen Idee von John Horton Conway. Das Spielfeld besteht aus einem Gitter einzelner quadratischer Zellen. Jede Zelle kann tot oder lebendig sein. Vier simple Regeln entscheiden über diesen Zustand einer Zelle. Dies hängt von dem Zustand seiner direkten acht Nachbarn ab.
 ## Regeln
 Falls eine Zelle tot ist, kann sie nur wieder lebendig werden, wenn sie genau drei lebendige Nachbarn hat.
 Ist die Zelle lebendig, wird sie sterben, wenn weniger als 2 oder mehr als 3 Nachbarn hat. Beudeutet, dass eine lebendige Zelle mit 2 oder 3 Nachbarn ihren Zustand nicht verändern wird.
@@ -14,7 +14,7 @@ Das wichtigste Model ist die Zelle. Sie erbt von einem JPanel. Sie besitzt zwei 
 Erbt von JFrame und besteht hauptsächlich aus: 
   *	JPanel controlPanel : Beinhaltet die zwei JButtons und JLabels, von hier wird der Spielfluss gesteuert.
   *	JButton pauseStartButton : Damit kann beim Klicken die Simulation unterbrochen/fortgesetzt werden.
-  *	JButton resetButton : Tötet alle Zellen und setzt den „GenerationCounter auf 0. 
+  *	JButton resetButton : Tötet alle Zellen und setzt den "GenerationCounter" auf 0. 
   *	JLabel generationCounterLabel : Inkrementiert sich bei jeder neuen Generation.
   *	GameGrid gameGrid : Erbt von JPanel und besitzt ein GridLayout. Hier werden die Zellen an-geordnet.
 ## Controller
