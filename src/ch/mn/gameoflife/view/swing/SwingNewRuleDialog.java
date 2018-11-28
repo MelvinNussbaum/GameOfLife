@@ -64,10 +64,10 @@ public class SwingNewRuleDialog extends JDialog {
 
     public SwingNewRuleDialog(SwingMainFrame parent, boolean modal) throws ParseException {
         super(parent, modal);
-        this.setTitle("Neue Regel");
+        this.rBundle = parent.getResourceBundle();
+        this.setTitle(rBundle.getString("newRules"));
         this.setResizable(true);
         this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        this.rBundle = parent.getResourceBundle();
 
         buildGUI();
         pack();

@@ -74,6 +74,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         gameOfLifeLabel.setText(rBundle.getString("gameOfLife"));
         newRuleButton.setText(rBundle.getString("newRules"));
+        settingsButton.setText(rBundle.getString("settings"));
         resetButton.setText(rBundle.getString("reset"));
         pauseStartButton.setText(rBundle.getString("start"));
         generationCounterLabel.setText(rBundle.getString("generation") + ": 0");

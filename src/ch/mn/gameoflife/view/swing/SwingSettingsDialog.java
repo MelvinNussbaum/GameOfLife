@@ -20,10 +20,10 @@ public class SwingSettingsDialog extends JDialog {
 
     public SwingSettingsDialog(SwingMainFrame parent, boolean modal) {
         super(parent, modal);
-        this.setTitle("Settings");
+        this.rBundle = parent.getResourceBundle();
+        this.setTitle(rBundle.getString("settings"));
         this.setResizable(true);
         this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        this.rBundle = parent.getResourceBundle();
 
         buildGUI();
         pack();
