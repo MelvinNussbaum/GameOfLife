@@ -71,7 +71,9 @@ public class SwingNewRuleDialog extends JDialog {
 
         buildGUI();
         pack();
-        setLocationRelativeTo(getParent());
+
+        this.setLocationRelativeTo(getParent());
+        this.setVisible(true);
     }
 
     private void buildGUI() {
