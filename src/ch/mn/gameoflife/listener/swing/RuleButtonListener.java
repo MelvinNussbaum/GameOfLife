@@ -25,9 +25,19 @@ public class RuleButtonListener implements ActionListener {
 
     Container parent;
 
+    SwingNewRuleDialog parentDialog;
+
+    SwingMainFrame parentFrame;
+
     public RuleButtonListener(Container parent) {
         super();
         this.parent = parent;
+
+        if (parent instanceof SwingMainFrame) {
+            parentFrame = SwingMainFrame.class.cast(parent);
+        } else if (parent instanceof SwingNewRuleDialog) {
+            parentDialog = SwingNewRuleDialog.class.cast(parent);
+        }
     }
 
     @Override
@@ -37,7 +47,6 @@ public class RuleButtonListener implements ActionListener {
 
         switch (source.getActionCommand()) {
             case "newRules":
-                SwingMainFrame parentFrame = (SwingMainFrame) parent;
                 try {
                     SwingNewRuleDialog swingNewRule = new SwingNewRuleDialog(parentFrame, true);
                     swingNewRule.setVisible(true);
@@ -45,9 +54,8 @@ public class RuleButtonListener implements ActionListener {
                     pe.printStackTrace();
                 }
                 break;
-            case "apply":
-                SwingNewRuleDialog parentDialog = (SwingNewRuleDialog) parent;
 
+            case "applyRules":
                 try {
                     String aliveGreaterObject = parentDialog.getAliveRuleGreaterField().getText();
                     String aliveLessObject = parentDialog.getAliveRuleLessField().getText();
@@ -71,8 +79,15 @@ public class RuleButtonListener implements ActionListener {
                         .getString("ruleErrorMessage");
                     JOptionPane.showMessageDialog(parentDialog, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
                 break;
+
+            case "defaultRules":
+                parentDialog.getAliveRuleGreaterField().setText("1");
+                parentDialog.getAliveRuleLessField().setText("4");
+                parentDialog.getDeadRuleGreaterField().setText("2");
+                parentDialog.getDeadRuleLessField().setText("4");
+                break;
+
             default:
                 break;
         }
