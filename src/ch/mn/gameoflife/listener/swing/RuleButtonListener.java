@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import ch.mn.gameoflife.utils.Rule;
 import ch.mn.gameoflife.view.swing.SwingMainFrame;
@@ -36,30 +37,41 @@ public class RuleButtonListener implements ActionListener {
 
         switch (source.getActionCommand()) {
             case "newRules":
+                SwingMainFrame parentFrame = (SwingMainFrame) parent;
                 try {
-                    SwingNewRuleDialog swingNewRule = new SwingNewRuleDialog((SwingMainFrame) parent, true);
+                    SwingNewRuleDialog swingNewRule = new SwingNewRuleDialog(parentFrame, true);
                     swingNewRule.setVisible(true);
                 } catch (ParseException pe) {
                     pe.printStackTrace();
                 }
                 break;
             case "apply":
-                String aliveGreaterObject = ((SwingNewRuleDialog) parent).getAliveRuleGreaterField().getText();
-                String aliveLessObject = ((SwingNewRuleDialog) parent).getAliveRuleLessField().getText();
-                String deadGreaterObject = ((SwingNewRuleDialog) parent).getDeadRuleGreaterField().getText();
-                String deadLessObject = ((SwingNewRuleDialog) parent).getDeadRuleLessField().getText();
+                SwingNewRuleDialog parentDialog = (SwingNewRuleDialog) parent;
 
-                Integer aliveGreater = Integer.parseInt(aliveGreaterObject);
-                Integer aliveLess = Integer.parseInt(aliveLessObject);
-                Integer deadGreater = Integer.parseInt(deadGreaterObject);
-                Integer deadLess = Integer.parseInt(deadLessObject);
+                try {
+                    String aliveGreaterObject = parentDialog.getAliveRuleGreaterField().getText();
+                    String aliveLessObject = parentDialog.getAliveRuleLessField().getText();
+                    String deadGreaterObject = parentDialog.getDeadRuleGreaterField().getText();
+                    String deadLessObject = parentDialog.getDeadRuleLessField().getText();
 
-                Rule.setAliveCellsNeighboursGreaterThan(aliveGreater);
-                Rule.setAliveCellsNeighboursLessThan(aliveLess);
-                Rule.setDeadCellsNeighboursGreaterThan(deadGreater);
-                Rule.setDeadCellsNeighboursLessThan(deadLess);
+                    Integer aliveGreater = Integer.parseInt(aliveGreaterObject);
+                    Integer aliveLess = Integer.parseInt(aliveLessObject);
+                    Integer deadGreater = Integer.parseInt(deadGreaterObject);
+                    Integer deadLess = Integer.parseInt(deadLessObject);
 
-                ((SwingNewRuleDialog) parent).dispose();
+                    Rule.setAliveCellsNeighboursGreaterThan(aliveGreater);
+                    Rule.setAliveCellsNeighboursLessThan(aliveLess);
+                    Rule.setDeadCellsNeighboursGreaterThan(deadGreater);
+                    Rule.setDeadCellsNeighboursLessThan(deadLess);
+
+                    parentDialog.dispose();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    String errorMessage = ((SwingMainFrame) parentDialog.getParent()).getResourceBundle()
+                        .getString("ruleErrorMessage");
+                    JOptionPane.showMessageDialog(parentDialog, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
             default:
                 break;
