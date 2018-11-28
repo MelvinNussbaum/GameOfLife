@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -149,6 +150,11 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
     public GameThread getGameThread() {
 
         return gameThread;
+    }
+
+    public ResourceBundle getResourceBundle() {
+
+        return rBundle;
     }
 
 }
