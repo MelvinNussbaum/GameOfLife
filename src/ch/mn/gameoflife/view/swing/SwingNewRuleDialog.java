@@ -56,7 +56,11 @@ public class SwingNewRuleDialog extends JDialog {
 
     private JFormattedTextField deadRuleLessField = new JFormattedTextField(maskFormatter);
 
+    private RuleButtonListener ruleButtonListener = new RuleButtonListener(this);
+
     private JButton sendRulesButton = new JButton();
+
+    private JButton defaultRulesButton = new JButton();
 
     public SwingNewRuleDialog(SwingMainFrame parent, boolean modal) throws ParseException {
         super(parent, modal);
@@ -72,9 +76,13 @@ public class SwingNewRuleDialog extends JDialog {
 
     private void buildGUI() {
 
-        sendRulesButton.setText(rBundle.getString("apply"));
-        sendRulesButton.setActionCommand("apply");
-        sendRulesButton.addActionListener(new RuleButtonListener(this));
+        sendRulesButton.setText(rBundle.getString("applyRules"));
+        sendRulesButton.setActionCommand("applyRules");
+        sendRulesButton.addActionListener(ruleButtonListener);
+
+        defaultRulesButton.setText(rBundle.getString("defaultRules"));
+        defaultRulesButton.setActionCommand("defaultRules");
+        defaultRulesButton.addActionListener(ruleButtonListener);
 
         aliveRuleGreaterLabel.setText(rBundle.getString("aliveRuleGreater"));
         aliveRuleLessLabel.setText(rBundle.getString("aliveRuleLess"));
@@ -86,6 +94,7 @@ public class SwingNewRuleDialog extends JDialog {
         deadRuleGreaterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         deadRuleLessLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         sendRulesButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        defaultRulesButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 
         aliveRuleGreaterField.setHorizontalAlignment(SwingConstants.CENTER);
         aliveRuleLessField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -113,6 +122,7 @@ public class SwingNewRuleDialog extends JDialog {
         aliveRuleLessPanel.add(aliveRuleLessLabel, BorderLayout.WEST);
         aliveRuleLessPanel.add(aliveRuleLessField, BorderLayout.EAST);
         buttonPanel.add(sendRulesButton, BorderLayout.CENTER);
+        buttonPanel.add(defaultRulesButton, BorderLayout.EAST);
 
         deadRuleGreaterPanel.add(deadRuleGreaterLabel, BorderLayout.WEST);
         deadRuleGreaterPanel.add(deadRuleGreaterField, BorderLayout.EAST);
