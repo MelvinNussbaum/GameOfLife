@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -16,9 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import ch.mn.gameoflife.controller.GameGridController;
-import ch.mn.gameoflife.listener.swing.ButtonListener;
+import ch.mn.gameoflife.listener.swing.GameActionListener;
 import ch.mn.gameoflife.listener.swing.GridListener;
-import ch.mn.gameoflife.listener.swing.RuleButtonListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
 import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
@@ -43,11 +45,13 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private JButton newRuleButton = new JButton();
 
+    private JButton settingsButton = new JButton();
+
     private JLabel gameOfLifeLabel = new JLabel();
 
     private JLabel generationCounterLabel = new JLabel("", SwingConstants.CENTER);
 
-    private ButtonListener buttonListener = new ButtonListener(gameThread);
+    private GameActionListener gameActionListener = new GameActionListener(gameThread);
 
     private GridListener gridListener = new GridListener();
 
@@ -89,9 +93,22 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         pauseStartButton.setActionCommand("start");
         resetButton.setActionCommand("reset");
         newRuleButton.setActionCommand("newRules");
-        pauseStartButton.addActionListener(buttonListener);
-        resetButton.addActionListener(buttonListener);
-        newRuleButton.addActionListener(new RuleButtonListener(this));
+        pauseStartButton.addActionListener(gameActionListener);
+        resetButton.addActionListener(gameActionListener);
+        newRuleButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+                    SwingNewRuleDialog swingNewRule = new SwingNewRuleDialog(SwingMainFrame.this, true);
+                    swingNewRule.setVisible(true);
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        settingsButton.addActionListener(gameActionListener);
 
         gameOfLifeLabel.setAlignmentX(CENTER_ALIGNMENT);
         pauseStartButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -156,5 +173,4 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         return rBundle;
     }
-
 }
