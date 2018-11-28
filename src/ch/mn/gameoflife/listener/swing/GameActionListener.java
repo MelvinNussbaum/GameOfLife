@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 
-import javax.swing.JButton;
-
 import ch.mn.gameoflife.thread.GameThread;
 
 public class GameActionListener implements ActionListener, Serializable {
@@ -22,9 +20,7 @@ public class GameActionListener implements ActionListener, Serializable {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        JButton source = (JButton) e.getSource();
-
-        switch (source.getActionCommand()) {
+        switch (e.getActionCommand()) {
             case "reset":
                 gameThread.getCellController().killAllCells();
                 gameThread.setGenerationCounter(0);
