@@ -100,7 +100,6 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
                 new SwingSettingsDialog(SwingMainFrame.this, true);
             }
-
         });
 
         gameOfLifeLabel.setAlignmentX(CENTER_ALIGNMENT);
