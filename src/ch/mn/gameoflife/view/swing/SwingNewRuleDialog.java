@@ -124,13 +124,14 @@ public class SwingNewRuleDialog extends JDialog {
         aliveRuleGreaterPanel.add(aliveRuleGreaterField, BorderLayout.EAST);
         aliveRuleLessPanel.add(aliveRuleLessLabel, BorderLayout.WEST);
         aliveRuleLessPanel.add(aliveRuleLessField, BorderLayout.EAST);
-        buttonPanel.add(sendRulesButton, BorderLayout.CENTER);
-        buttonPanel.add(defaultRulesButton, BorderLayout.EAST);
 
         deadRuleGreaterPanel.add(deadRuleGreaterLabel, BorderLayout.WEST);
         deadRuleGreaterPanel.add(deadRuleGreaterField, BorderLayout.EAST);
         deadRuleLessPanel.add(deadRuleLessLabel, BorderLayout.WEST);
         deadRuleLessPanel.add(deadRuleLessField, BorderLayout.EAST);
+
+        buttonPanel.add(sendRulesButton, BorderLayout.CENTER);
+        buttonPanel.add(defaultRulesButton, BorderLayout.EAST);
 
         add(aliveRuleGreaterPanel);
         add(Box.createRigidArea(new Dimension(0, 10)));
