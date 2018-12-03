@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
@@ -62,7 +63,7 @@ public class SwingNewRuleDialog extends JDialog {
 
     private JButton defaultRulesButton = new JButton();
 
-    public SwingNewRuleDialog(SwingMainFrame parent, boolean modal) throws ParseException {
+    public SwingNewRuleDialog(SwingSettingsDialog parent, boolean modal) throws ParseException {
         super(parent, modal);
         this.rBundle = parent.getResourceBundle();
         this.setTitle(rBundle.getString("newRules"));
@@ -142,6 +143,36 @@ public class SwingNewRuleDialog extends JDialog {
         add(buttonPanel);
     }
 
+    public void validateAndSendRuleInput() {
+
+        String aliveGreaterObject = getAliveRuleGreaterField().getText();
+        String aliveLessObject = getAliveRuleLessField().getText();
+        String deadGreaterObject = getDeadRuleGreaterField().getText();
+        String deadLessObject = getDeadRuleLessField().getText();
+
+        try {
+            Integer aliveGreater = Integer.parseInt(aliveGreaterObject);
+            Integer aliveLess = Integer.parseInt(aliveLessObject);
+            Integer deadGreater = Integer.parseInt(deadGreaterObject);
+            Integer deadLess = Integer.parseInt(deadLessObject);
+            Rule.applyRules(aliveGreater, aliveLess, deadGreater, deadLess);
+            dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            String errorMessage = getResourceBundle().getString("ruleErrorMessage");
+            JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    public void setDefaultRules() {
+
+        getAliveRuleGreaterField().setText("1");
+        getAliveRuleLessField().setText("4");
+        getDeadRuleGreaterField().setText("2");
+        getDeadRuleLessField().setText("4");
+    }
+
     public JFormattedTextField getAliveRuleGreaterField() {
 
         return aliveRuleGreaterField;
@@ -180,6 +211,11 @@ public class SwingNewRuleDialog extends JDialog {
     public void setDeadRuleLessField(JFormattedTextField deadRuleLessField) {
 
         this.deadRuleLessField = deadRuleLessField;
+    }
+
+    public ResourceBundle getResourceBundle() {
+
+        return rBundle;
     }
 
 }
