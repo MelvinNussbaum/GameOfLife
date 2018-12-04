@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.GameActionListener;
 import ch.mn.gameoflife.listener.swing.GridListener;
+import ch.mn.gameoflife.listener.swing.SaveListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
 import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
@@ -44,6 +45,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private JButton settingsButton = new JButton();
 
+    private JButton saveButton = new JButton();
+
     private JLabel gameOfLifeLabel = new JLabel();
 
     private JLabel generationCounterLabel = new JLabel("", SwingConstants.CENTER);
@@ -51,6 +54,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
     private GameActionListener gameActionListener = new GameActionListener(gameThread);
 
     private GridListener gridListener = new GridListener();
+
+    private SaveListener saveListener = new SaveListener(cells);
 
     public SwingMainFrame(String title) {
         super();
@@ -73,6 +78,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         settingsButton.setText(rBundle.getString("settings"));
         resetButton.setText(rBundle.getString("reset"));
         pauseStartButton.setText(rBundle.getString("start"));
+        saveButton.setText(rBundle.getString("saveGame"));
         generationCounterLabel.setText(rBundle.getString("generation") + ": 0");
 
         gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
@@ -90,9 +96,10 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         pauseStartButton.setActionCommand("start");
         resetButton.setActionCommand("reset");
         settingsButton.setActionCommand("newSettings");
+        saveButton.setActionCommand("save");
         pauseStartButton.addActionListener(gameActionListener);
         resetButton.addActionListener(gameActionListener);
-
+        saveButton.addActionListener(saveListener);
         settingsButton.addActionListener(new ActionListener() {
 
             @Override
@@ -106,12 +113,14 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         pauseStartButton.setAlignmentX(CENTER_ALIGNMENT);
         resetButton.setAlignmentX(CENTER_ALIGNMENT);
         settingsButton.setAlignmentX(CENTER_ALIGNMENT);
+        saveButton.setAlignmentX(CENTER_ALIGNMENT);
         generationCounterLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         gameOfLifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
         pauseStartButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         resetButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
         settingsButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+        saveButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         generationCounterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
 
         controlPanel.add(Box.createVerticalStrut(20));
@@ -122,6 +131,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         controlPanel.add(resetButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(settingsButton);
+        controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        controlPanel.add(saveButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(generationCounterLabel);
         controlPanel.add(Box.createVerticalGlue());
