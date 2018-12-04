@@ -6,9 +6,20 @@ public class Cell implements Serializable {
 
     private static final long serialVersionUID = 3880031941181526796L;
 
-    boolean isAlive = false;
+    private int id;
 
-    int aliveNeighbours;
+    private boolean isAlive = false;
+
+    private int aliveNeighbours;
+
+    public Cell() {
+        super();
+    }
+
+    public Cell(int id) {
+        super();
+        this.id = id;
+    }
 
     public boolean isAlive() {
 
