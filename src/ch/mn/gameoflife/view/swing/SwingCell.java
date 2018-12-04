@@ -21,7 +21,7 @@ public class SwingCell extends JPanel implements ICellView {
     @Override
     public void repaintCell() {
 
-        setBackground(cellModel.isAlive() ? Color.WHITE : Color.BLACK);
+        setBackground(cellModel.getAlive() ? Color.WHITE : Color.BLACK);
     }
 
     public Cell getCellModel() {

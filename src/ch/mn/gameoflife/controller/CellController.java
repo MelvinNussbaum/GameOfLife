@@ -36,24 +36,24 @@ public class CellController implements Serializable {
 
                 // Falls rowM (also row-1) -1 wäre (somit ausserhalb vom Grid) werden diese Nachbarn nicht gezählt und als tot gewertet
                 if (rowM != -1) {
-                    if (cells[rowM][col].isAlive())
+                    if (cells[rowM][col].getAlive())
                         aliveNeighbours++;
-                    if (colM != -1 && cells[rowM][colM].isAlive())
+                    if (colM != -1 && cells[rowM][colM].getAlive())
                         aliveNeighbours++;
-                    if (colP != GameGridController.GRIDCOLS && cells[rowM][colP].isAlive())
+                    if (colP != GameGridController.GRIDCOLS && cells[rowM][colP].getAlive())
                         aliveNeighbours++;
                 }
                 if (rowP != GameGridController.GRIDROWS) {
-                    if (cells[rowP][col].isAlive())
+                    if (cells[rowP][col].getAlive())
                         aliveNeighbours++;
-                    if (colM != -1 && cells[rowP][colM].isAlive())
+                    if (colM != -1 && cells[rowP][colM].getAlive())
                         aliveNeighbours++;
-                    if (colP != GameGridController.GRIDCOLS && cells[rowP][colP].isAlive())
+                    if (colP != GameGridController.GRIDCOLS && cells[rowP][colP].getAlive())
                         aliveNeighbours++;
                 }
-                if (colP != GameGridController.GRIDCOLS && cells[row][colP].isAlive())
+                if (colP != GameGridController.GRIDCOLS && cells[row][colP].getAlive())
                     aliveNeighbours++;
-                if (colM != -1 && cells[row][colM].isAlive())
+                if (colM != -1 && cells[row][colM].getAlive())
                     aliveNeighbours++;
 
                 cells[row][col].setAliveNeighbours(aliveNeighbours);
