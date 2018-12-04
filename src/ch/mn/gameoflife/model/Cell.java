@@ -8,7 +8,7 @@ public class Cell implements Serializable {
 
     private int id;
 
-    private boolean isAlive = false;
+    private boolean alive = false;
 
     private int aliveNeighbours;
 
@@ -21,14 +21,24 @@ public class Cell implements Serializable {
         this.id = id;
     }
 
-    public boolean isAlive() {
+    public int getId() {
 
-        return isAlive;
+        return id;
     }
 
-    public void setAlive(boolean isAlive) {
+    public void setId(int id) {
 
-        this.isAlive = isAlive;
+        this.id = id;
+    }
+
+    public boolean getAlive() {
+
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+
+        this.alive = alive;
     }
 
     public int getAliveNeighbours() {
@@ -39,6 +49,11 @@ public class Cell implements Serializable {
     public void setAliveNeighbours(int aliveNeighbours) {
 
         this.aliveNeighbours = aliveNeighbours;
+    }
+
+    public static long getSerialversionuid() {
+
+        return serialVersionUID;
     }
 
 }
