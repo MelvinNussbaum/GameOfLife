@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
@@ -62,16 +63,18 @@ public class SwingNewRuleDialog extends JDialog {
 
     private JButton defaultRulesButton = new JButton();
 
-    public SwingNewRuleDialog(SwingMainFrame parent, boolean modal) throws ParseException {
+    public SwingNewRuleDialog(SwingSettingsDialog parent, boolean modal) throws ParseException {
         super(parent, modal);
-        this.setTitle("Neue Regel");
+        this.rBundle = parent.getResourceBundle();
+        this.setTitle(rBundle.getString("newRules"));
         this.setResizable(true);
         this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        this.rBundle = parent.getResourceBundle();
 
         buildGUI();
         pack();
-        setLocationRelativeTo(getParent());
+
+        this.setLocationRelativeTo(getParent());
+        this.setVisible(true);
     }
 
     private void buildGUI() {
@@ -121,13 +124,14 @@ public class SwingNewRuleDialog extends JDialog {
         aliveRuleGreaterPanel.add(aliveRuleGreaterField, BorderLayout.EAST);
         aliveRuleLessPanel.add(aliveRuleLessLabel, BorderLayout.WEST);
         aliveRuleLessPanel.add(aliveRuleLessField, BorderLayout.EAST);
-        buttonPanel.add(sendRulesButton, BorderLayout.CENTER);
-        buttonPanel.add(defaultRulesButton, BorderLayout.EAST);
 
         deadRuleGreaterPanel.add(deadRuleGreaterLabel, BorderLayout.WEST);
         deadRuleGreaterPanel.add(deadRuleGreaterField, BorderLayout.EAST);
         deadRuleLessPanel.add(deadRuleLessLabel, BorderLayout.WEST);
         deadRuleLessPanel.add(deadRuleLessField, BorderLayout.EAST);
+
+        buttonPanel.add(sendRulesButton, BorderLayout.CENTER);
+        buttonPanel.add(defaultRulesButton, BorderLayout.EAST);
 
         add(aliveRuleGreaterPanel);
         add(Box.createRigidArea(new Dimension(0, 10)));
@@ -138,6 +142,36 @@ public class SwingNewRuleDialog extends JDialog {
         add(deadRuleLessPanel);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(buttonPanel);
+    }
+
+    public void validateAndSendRuleInput() {
+
+        String aliveGreaterObject = getAliveRuleGreaterField().getText();
+        String aliveLessObject = getAliveRuleLessField().getText();
+        String deadGreaterObject = getDeadRuleGreaterField().getText();
+        String deadLessObject = getDeadRuleLessField().getText();
+
+        try {
+            Integer aliveGreater = Integer.parseInt(aliveGreaterObject);
+            Integer aliveLess = Integer.parseInt(aliveLessObject);
+            Integer deadGreater = Integer.parseInt(deadGreaterObject);
+            Integer deadLess = Integer.parseInt(deadLessObject);
+            Rule.applyRules(aliveGreater, aliveLess, deadGreater, deadLess);
+            dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            String errorMessage = getResourceBundle().getString("ruleErrorMessage");
+            JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    public void setDefaultRules() {
+
+        getAliveRuleGreaterField().setText("1");
+        getAliveRuleLessField().setText("4");
+        getDeadRuleGreaterField().setText("2");
+        getDeadRuleLessField().setText("4");
     }
 
     public JFormattedTextField getAliveRuleGreaterField() {
@@ -178,6 +212,11 @@ public class SwingNewRuleDialog extends JDialog {
     public void setDeadRuleLessField(JFormattedTextField deadRuleLessField) {
 
         this.deadRuleLessField = deadRuleLessField;
+    }
+
+    public ResourceBundle getResourceBundle() {
+
+        return rBundle;
     }
 
 }

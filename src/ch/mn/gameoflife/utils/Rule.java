@@ -28,6 +28,14 @@ public class Rule {
         return false;
     }
 
+    public static void applyRules(Integer aliveGreater, Integer aliveLess, Integer deadGreater, Integer deadLess) {
+
+        setAliveCellsNeighboursGreaterThan(aliveGreater);
+        setAliveCellsNeighboursLessThan(aliveLess);
+        setDeadCellsNeighboursGreaterThan(deadGreater);
+        setDeadCellsNeighboursLessThan(deadLess);
+    }
+
     public static int getDeadCellsNeighboursGreaterThan() {
 
         return deadCellsNeighboursGreaterThan;

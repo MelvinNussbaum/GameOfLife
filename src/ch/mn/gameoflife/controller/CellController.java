@@ -13,9 +13,11 @@ public class CellController implements Serializable {
 
     public CellController() {
         super();
+        int idCounter = 0;
         for (int row = 0; row < cells.length; row++) {
             for (int col = 0; col < cells.length; col++) {
-                cells[row][col] = new Cell();
+                cells[row][col] = new Cell(idCounter);
+                idCounter++;
             }
         }
     }
