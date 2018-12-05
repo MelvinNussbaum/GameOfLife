@@ -12,8 +12,11 @@ package ch.mn.gameoflife.listener.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import ch.mn.gameoflife.controller.SaveController;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.utils.Language;
 
 public class SaveListener implements ActionListener {
 
@@ -27,15 +30,19 @@ public class SaveListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent ae) {
 
-        switch (e.getActionCommand()) {
+        switch (ae.getActionCommand()) {
             case "save":
                 saveController.saveGame();
+                String saveMessage = Language.getResourceBundle().getString("saveSuccessful");
+                JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.INFORMATION_MESSAGE);
                 break;
 
             case "load":
                 saveController.loadGame();
+                String loadMessage = Language.getResourceBundle().getString("loadSuccessful");
+                JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.INFORMATION_MESSAGE);
                 break;
 
             default:
