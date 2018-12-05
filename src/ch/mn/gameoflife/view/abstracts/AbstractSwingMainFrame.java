@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.utils.Language;
 import ch.mn.gameoflife.view.interfaces.IMainFrame;
 import ch.mn.gameoflife.view.swing.SwingCell;
 
@@ -19,7 +20,7 @@ public abstract class AbstractSwingMainFrame extends JFrame implements IMainFram
 
     protected Locale currentLocale = Locale.getDefault();
 
-    protected ResourceBundle rBundle;
+    protected ResourceBundle rBundle = Language.getResourceBundle();
 
     public void drawGridLines(int row, int col, SwingCell swingCell) {
 
