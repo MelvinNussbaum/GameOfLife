@@ -50,6 +50,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private JButton saveButton = new JButton();
 
+    private JButton loadButton = new JButton();
+
     private JLabel gameOfLifeLabel = new JLabel();
 
     private JLabel generationCounterLabel = new JLabel("", SwingConstants.CENTER);
@@ -89,6 +91,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         resetButton.setText(rBundle.getString("reset"));
         pauseStartButton.setText(rBundle.getString("start"));
         saveButton.setText(rBundle.getString("saveGame"));
+        loadButton.setText(rBundle.getString("loadGame"));
         generationCounterLabel.setText(rBundle.getString("generation") + ": 0");
 
         gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
@@ -107,9 +110,11 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         resetButton.setActionCommand("reset");
         settingsButton.setActionCommand("newSettings");
         saveButton.setActionCommand("save");
+        loadButton.setActionCommand("load");
         pauseStartButton.addActionListener(gameActionListener);
         resetButton.addActionListener(gameActionListener);
         saveButton.addActionListener(saveListener);
+        loadButton.addActionListener(saveListener);
         settingsButton.addActionListener(new ActionListener() {
 
             @Override
@@ -124,6 +129,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         resetButton.setAlignmentX(CENTER_ALIGNMENT);
         settingsButton.setAlignmentX(CENTER_ALIGNMENT);
         saveButton.setAlignmentX(CENTER_ALIGNMENT);
+        loadButton.setAlignmentX(CENTER_ALIGNMENT);
         generationCounterLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         gameOfLifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
@@ -131,6 +137,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         resetButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
         settingsButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         saveButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+        loadButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         generationCounterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
 
         controlPanel.add(Box.createVerticalStrut(20));
@@ -144,6 +151,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         if (databaseConnected) {
             controlPanel.add(saveButton);
+            controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            controlPanel.add(loadButton);
             controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
         controlPanel.add(generationCounterLabel);
