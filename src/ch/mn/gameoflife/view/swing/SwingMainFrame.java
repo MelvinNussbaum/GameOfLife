@@ -14,12 +14,14 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.GameActionListener;
 import ch.mn.gameoflife.listener.swing.GridListener;
+import ch.mn.gameoflife.listener.swing.SaveListener;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.thread.GameThread;
 import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
@@ -27,6 +29,8 @@ import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
 public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private static final long serialVersionUID = 2978608857717274514L;
+
+    private boolean databaseConnected = true;
 
     private GameThread gameThread = new GameThread(this);
 
@@ -44,6 +48,10 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private JButton settingsButton = new JButton();
 
+    private JButton saveButton = new JButton();
+
+    private JButton loadButton = new JButton();
+
     private JLabel gameOfLifeLabel = new JLabel();
 
     private JLabel generationCounterLabel = new JLabel("", SwingConstants.CENTER);
@@ -51,6 +59,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
     private GameActionListener gameActionListener = new GameActionListener(gameThread);
 
     private GridListener gridListener = new GridListener();
+
+    private SaveListener saveListener;
 
     public SwingMainFrame(String title) {
         super();
@@ -61,18 +71,27 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        rBundle = switchLanguage(currentLocale);
-        currentLocale = rBundle.getLocale();
         buildGUI();
     }
 
     @Override
     public void buildGUI() {
 
+        try {
+            saveListener = new SaveListener(cells);
+        } catch (Throwable e) {
+            databaseConnected = false;
+            String errorMessage = rBundle.getString("dataBaseConnectionException");
+            JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
         gameOfLifeLabel.setText(rBundle.getString("gameOfLife"));
         settingsButton.setText(rBundle.getString("settings"));
         resetButton.setText(rBundle.getString("reset"));
         pauseStartButton.setText(rBundle.getString("start"));
+        saveButton.setText(rBundle.getString("saveGame"));
+        loadButton.setText(rBundle.getString("loadGame"));
         generationCounterLabel.setText(rBundle.getString("generation") + ": 0");
 
         gameGrid.setLayout(new GridLayout(GameGridController.GRIDROWS, GameGridController.GRIDCOLS));
@@ -90,9 +109,12 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         pauseStartButton.setActionCommand("start");
         resetButton.setActionCommand("reset");
         settingsButton.setActionCommand("newSettings");
+        saveButton.setActionCommand("save");
+        loadButton.setActionCommand("load");
         pauseStartButton.addActionListener(gameActionListener);
         resetButton.addActionListener(gameActionListener);
-
+        saveButton.addActionListener(saveListener);
+        loadButton.addActionListener(saveListener);
         settingsButton.addActionListener(new ActionListener() {
 
             @Override
@@ -106,12 +128,16 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         pauseStartButton.setAlignmentX(CENTER_ALIGNMENT);
         resetButton.setAlignmentX(CENTER_ALIGNMENT);
         settingsButton.setAlignmentX(CENTER_ALIGNMENT);
+        saveButton.setAlignmentX(CENTER_ALIGNMENT);
+        loadButton.setAlignmentX(CENTER_ALIGNMENT);
         generationCounterLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         gameOfLifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 36));
         pauseStartButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         resetButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
         settingsButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+        saveButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+        loadButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         generationCounterLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
 
         controlPanel.add(Box.createVerticalStrut(20));
@@ -123,6 +149,12 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(settingsButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        if (databaseConnected) {
+            controlPanel.add(saveButton);
+            controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            controlPanel.add(loadButton);
+            controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        }
         controlPanel.add(generationCounterLabel);
         controlPanel.add(Box.createVerticalGlue());
 

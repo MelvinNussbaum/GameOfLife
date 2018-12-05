@@ -59,7 +59,7 @@ public class GameThread extends Thread implements Runnable, Serializable {
 
         for (Cell[] celCol : cellController.getCells()) {
             for (Cell cell : celCol) {
-                if (cell.isAlive()) {
+                if (cell.getAlive()) {
                     return;
                 }
             }

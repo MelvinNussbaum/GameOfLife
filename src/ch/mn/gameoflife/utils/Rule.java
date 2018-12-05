@@ -16,7 +16,7 @@ public class Rule {
     public static boolean rule(Cell cell) {
 
         int aliveNeighbours = cell.getAliveNeighbours();
-        if (!(cell.isAlive())) {
+        if (!(cell.getAlive())) {
             if (aliveNeighbours > deadCellsNeighboursGreaterThan && aliveNeighbours < deadCellsNeighboursLessThan) {
                 return true;
             }
