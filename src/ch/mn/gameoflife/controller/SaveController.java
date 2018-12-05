@@ -14,11 +14,12 @@ import ch.mn.gameoflife.model.Cell;
 
 public class SaveController {
 
-    private ManageCell mCell = new ManageCell();
+    private ManageCell mCell;
 
     private Cell[][] cells;
 
-    public SaveController(Cell[][] cells) {
+    public SaveController(Cell[][] cells) throws Throwable {
+        this.mCell = new ManageCell();
         this.cells = cells;
     }
 

@@ -14,6 +14,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -55,7 +56,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private GridListener gridListener = new GridListener();
 
-    private SaveListener saveListener = new SaveListener(cells);
+    private SaveListener saveListener;
 
     public SwingMainFrame(String title) {
         super();
@@ -66,13 +67,19 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        rBundle = switchLanguage(currentLocale);
-        currentLocale = rBundle.getLocale();
         buildGUI();
     }
 
     @Override
     public void buildGUI() {
+
+        try {
+            saveListener = new SaveListener(cells);
+        } catch (Throwable e) {
+            String errorMessage = rBundle.getString("dataBaseConnectionException");
+            JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
 
         gameOfLifeLabel.setText(rBundle.getString("gameOfLife"));
         settingsButton.setText(rBundle.getString("settings"));

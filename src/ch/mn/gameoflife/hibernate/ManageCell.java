@@ -9,14 +9,17 @@
  ******************************************************************************/
 package ch.mn.gameoflife.hibernate;
 
+import java.util.ResourceBundle;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.utils.DatabaseConnection;
+import ch.mn.gameoflife.utils.Language;
 
 public class ManageCell {
 
@@ -24,19 +27,16 @@ public class ManageCell {
 
     int cellAmount = GameGridController.GRIDCOLS * GameGridController.GRIDROWS;
 
-    public ManageCell() {
+    ResourceBundle rBundle = Language.getResourceBundle();
 
-        try {
-            factory = new Configuration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
-        
+    public ManageCell() throws Throwable {
+
+        factory = DatabaseConnection.getDatabaseConnection();
         fillDatabase();
     }
-    
+
     private void fillDatabase() {
+
         if (countCells() < cellAmount) {
             for (int i = countCells(); i < cellAmount; i++) {
                 try {

@@ -21,7 +21,7 @@ public class SaveListener implements ActionListener {
 
     private Cell[][] cells;
 
-    public SaveListener(Cell[][] cells) {
+    public SaveListener(Cell[][] cells) throws Throwable {
         this.cells = cells;
         saveController = new SaveController(cells);
     }
