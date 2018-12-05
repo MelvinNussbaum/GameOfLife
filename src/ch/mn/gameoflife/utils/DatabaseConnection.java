@@ -14,10 +14,6 @@ import org.hibernate.cfg.Configuration;
 
 public class DatabaseConnection {
 
-    public DatabaseConnection() {
-        // TODO Auto-generated constructor stub
-    }
-
     public static SessionFactory getDatabaseConnection() throws Throwable {
 
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
