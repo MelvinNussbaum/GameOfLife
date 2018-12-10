@@ -14,19 +14,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import ch.mn.gameoflife.controller.SaveController;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.persistance.AbstractSafeManager;
 import ch.mn.gameoflife.utils.Language;
 
 public class SaveListener implements ActionListener {
 
-    private SaveController saveController;
+    private AbstractSafeManager safeManager;
 
     private Cell[][] cells;
 
     public SaveListener(Cell[][] cells) throws Throwable {
+        // Proxy übergiebt safeManager-Instanz;
+        this.safeManager = null;
         this.cells = cells;
-        saveController = new SaveController(cells);
+
+        this.safeManager.setCells(this.cells);
     }
 
     @Override
@@ -34,15 +37,27 @@ public class SaveListener implements ActionListener {
 
         switch (ae.getActionCommand()) {
             case "save":
-                saveController.saveGame();
-                String saveMessage = Language.getResourceBundle().getString("saveSuccessful");
-                JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    safeManager.saveGame();
+                    String saveMessage = Language.getResourceBundle().getString("saveSuccessful");
+                    JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e1) {
+                    String saveMessage = Language.getResourceBundle().getString("saveUnsuccessful");
+                    JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
+                }
                 break;
 
             case "load":
-                saveController.loadGame();
-                String loadMessage = Language.getResourceBundle().getString("loadSuccessful");
-                JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    safeManager.loadGame();
+                    String loadMessage = Language.getResourceBundle().getString("loadSuccessful");
+                    JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e1) {
+                    String loadMessage = Language.getResourceBundle().getString("loadUnsuccessful");
+                    JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
+                }
                 break;
 
             default:
