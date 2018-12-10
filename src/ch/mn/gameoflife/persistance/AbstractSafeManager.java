@@ -19,6 +19,11 @@ public abstract class AbstractSafeManager implements ISafeManager {
 
     }
 
+    public <T extends AbstractSafeManager> T getImplementation(Class<T> type) {
+
+        return null;
+    }
+
     public Cell[][] getCells() {
 
         return cells;
