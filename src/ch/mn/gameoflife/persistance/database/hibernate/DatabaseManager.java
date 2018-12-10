@@ -9,8 +9,6 @@
  ******************************************************************************/
 package ch.mn.gameoflife.persistance.database.hibernate;
 
-import java.util.ResourceBundle;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,17 +18,14 @@ import org.hibernate.cfg.Configuration;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.persistance.AbstractSafeManager;
-import ch.mn.gameoflife.utils.Language;
 
-public class ManageCell extends AbstractSafeManager {
+public class DatabaseManager extends AbstractSafeManager {
 
     private static SessionFactory factory;
 
     int cellAmount = GameGridController.GRIDCOLS * GameGridController.GRIDROWS;
 
-    ResourceBundle rBundle = Language.getResourceBundle();
-
-    public ManageCell() throws Throwable {
+    public DatabaseManager() throws Throwable {
 
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         fillDatabase();

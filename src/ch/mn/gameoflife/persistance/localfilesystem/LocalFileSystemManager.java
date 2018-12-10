@@ -18,9 +18,9 @@ import java.io.IOException;
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.persistance.AbstractSafeManager;
 
-public class FileWR extends AbstractSafeManager {
+public class LocalFileSystemManager extends AbstractSafeManager {
 
-    public FileWR() {
+    public LocalFileSystemManager() {
         // TODO Auto-generated constructor stub
     }
 
