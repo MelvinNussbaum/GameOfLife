@@ -15,6 +15,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
@@ -31,7 +32,7 @@ public class ManageCell extends AbstractSafeManager {
 
     public ManageCell() throws Throwable {
 
-        factory = DatabaseConnection.getDatabaseConnection();
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
         fillDatabase();
     }
 
