@@ -7,7 +7,7 @@
  * work including confidential and proprietary information of Allianz-Suisse.
  *
  ******************************************************************************/
-package ch.mn.gameoflife.utils;
+package ch.mn.gameoflife.persistance.database.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

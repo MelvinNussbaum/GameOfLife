@@ -7,7 +7,7 @@
  * work including confidential and proprietary information of Allianz-Suisse.
  *
  ******************************************************************************/
-package ch.mn.gameoflife.hibernate;
+package ch.mn.gameoflife.persistance.database.hibernate;
 
 import java.util.ResourceBundle;
 
@@ -18,10 +18,10 @@ import org.hibernate.Transaction;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.utils.DatabaseConnection;
+import ch.mn.gameoflife.persistance.AbstractSafeManager;
 import ch.mn.gameoflife.utils.Language;
 
-public class ManageCell {
+public class ManageCell extends AbstractSafeManager {
 
     private static SessionFactory factory;
 
@@ -55,6 +55,27 @@ public class ManageCell {
                 }
             }
         }
+    }
+
+    @Override
+    public void saveGame() throws Exception {
+
+        for (Cell[] celCol : cells) {
+            for (Cell cell : celCol) {
+                updateCell(cell.getId(), cell.getAlive());
+            }
+        }
+    }
+
+    @Override
+    public void loadGame() throws Exception {
+
+        for (Cell[] celCol : cells) {
+            for (Cell cell : celCol) {
+                cell.setAlive(readCell(cell.getId()));
+            }
+        }
+
     }
 
     /* Method to CREATE a Cell in the database */
@@ -137,4 +158,5 @@ public class ManageCell {
 
         return rowCount;
     }
+
 }
