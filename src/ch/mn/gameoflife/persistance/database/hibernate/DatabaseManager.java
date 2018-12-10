@@ -42,8 +42,8 @@ public class DatabaseManager extends AbstractSafeManager {
                 }
             }
         } else if (countCells() > cellAmount) {
-            int tempCountCells = countCells();
-            for (int i = cellAmount; i < tempCountCells; i++) {
+            int tempCellCount = countCells();
+            for (int i = cellAmount; i < tempCellCount; i++) {
                 try {
                     deleteCell(i);
                 } catch (Exception e) {
