@@ -21,7 +21,7 @@ import ch.mn.gameoflife.persistance.AbstractSaveManager;
 
 public class DatabaseManager extends AbstractSaveManager {
 
-    private static SessionFactory factory;
+    private SessionFactory factory;
 
     int cellAmount = GameGridController.GRIDCOLS * GameGridController.GRIDROWS;
 
@@ -71,7 +71,6 @@ public class DatabaseManager extends AbstractSaveManager {
                 cell.setAlive(readCell(cell.getId()));
             }
         }
-
     }
 
     /* Method to CREATE a Cell in the database */
