@@ -19,15 +19,17 @@ public class SaveManagerFactory {
         throws InstantiationException, IllegalAccessException {
 
         Class<T> type = null;
+        T instance;
 
-        if (checkDB()) {
+        try {
             type = (Class<T>) DatabaseManager.class;
-        } else {
+            instance = type.newInstance();
+        } catch (Exception e) {
             type = (Class<T>) LocalFileSystemManager.class;
+            instance = type.newInstance();
         }
 
-        return type.newInstance();
-
+        return instance;
     }
 
     private static boolean checkDB() {
