@@ -9,6 +9,8 @@
  ******************************************************************************/
 package ch.mn.gameoflife.persistance.database.hibernate;
 
+import java.net.ConnectException;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,7 +27,7 @@ public class DatabaseManager extends AbstractSaveManager {
 
     int cellAmount = GameGridController.GRIDCOLS * GameGridController.GRIDROWS;
 
-    public DatabaseManager() throws Throwable {
+    public DatabaseManager() throws ConnectException {
 
         factory = new Configuration().configure().buildSessionFactory();
         fillDatabase();
@@ -154,30 +156,19 @@ public class DatabaseManager extends AbstractSaveManager {
     }
 
     @Override
-    public boolean testAvailability() {
+    public void testAvailability() throws ConnectException {
 
-        boolean available;
-        Session session = null;
-        Transaction tx = null;
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        tx.commit();
 
-        try {
-            SessionFactory factory = new Configuration().configure().buildSessionFactory();
-            session = factory.openSession();
-            tx = session.beginTransaction();
-            tx.commit();
-            available = true;
-        } catch (Exception e) {
-            available = false;
-            if (tx != null) {
-                tx.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-
+        if (tx != null) {
+            tx.rollback();
+        }
+        if (session != null) {
+            session.close();
         }
 
-        return available;
     }
 }
