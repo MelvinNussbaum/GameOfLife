@@ -15,18 +15,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.persistance.AbstractSafeManager;
+import ch.mn.gameoflife.persistance.AbstractSaveManager;
+import ch.mn.gameoflife.persistance.utils.SaveManagerFactory;
 import ch.mn.gameoflife.utils.Language;
 
 public class SaveListener implements ActionListener {
 
-    private AbstractSafeManager safeManager;
+    private AbstractSaveManager safeManager;
 
     private Cell[][] cells;
 
     public SaveListener(Cell[][] cells) throws Throwable {
-        // Proxy übergiebt safeManager-Instanz;
-        this.safeManager = null;
+        this.safeManager = SaveManagerFactory.getImplementation();
         this.cells = cells;
 
         this.safeManager.setCells(this.cells);
