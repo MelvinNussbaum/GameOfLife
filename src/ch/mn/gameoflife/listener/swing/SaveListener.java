@@ -11,6 +11,7 @@ package ch.mn.gameoflife.listener.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.ConnectException;
 
 import javax.swing.JOptionPane;
@@ -27,7 +28,7 @@ public class SaveListener implements ActionListener {
 
     private Cell[][] cells;
 
-    public SaveListener(Cell[][] cells) throws InstantiationException, IllegalAccessException, ConnectException {
+    public SaveListener(Cell[][] cells) throws InstantiationException, IllegalAccessException, IOException {
         this.safeManager = SaveManagerFactory.getImplementation();
         this.cells = cells;
 
