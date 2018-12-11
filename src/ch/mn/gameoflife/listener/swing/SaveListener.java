@@ -11,11 +11,13 @@ package ch.mn.gameoflife.listener.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 
 import javax.swing.JOptionPane;
 
 import ch.mn.gameoflife.model.Cell;
 import ch.mn.gameoflife.persistance.AbstractSaveManager;
+import ch.mn.gameoflife.persistance.database.hibernate.DatabaseManager;
 import ch.mn.gameoflife.persistance.utils.SaveManagerFactory;
 import ch.mn.gameoflife.utils.Language;
 
@@ -25,11 +27,15 @@ public class SaveListener implements ActionListener {
 
     private Cell[][] cells;
 
-    public SaveListener(Cell[][] cells) throws Throwable {
+    public SaveListener(Cell[][] cells) throws InstantiationException, IllegalAccessException, ConnectException {
         this.safeManager = SaveManagerFactory.getImplementation();
         this.cells = cells;
 
         this.safeManager.setCells(this.cells);
+
+        if (!safeManager.getClass().equals(DatabaseManager.class)) {
+            throw new ConnectException();
+        }
     }
 
     @Override
