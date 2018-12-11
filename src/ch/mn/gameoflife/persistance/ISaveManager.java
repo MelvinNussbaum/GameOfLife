@@ -9,9 +9,12 @@
  ******************************************************************************/
 package ch.mn.gameoflife.persistance;
 
-public interface ISafeManager {
+public interface ISaveManager {
 
     void saveGame() throws Exception;
 
     void loadGame() throws Exception;
+
+    boolean testAvailability();
+
 }
