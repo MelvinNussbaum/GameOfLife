@@ -51,40 +51,21 @@ public class LocalFileSystemManager extends AbstractSaveManager {
     }
 
     @Override
-    public boolean testAvailability() {
+    public void testAvailability() throws IOException {
 
-        boolean available;
-        FileOutputStream outputStream = null;
-        BufferedReader bufferedReader = null;
+        File file = new File("savegames/save.txt");
+        FileOutputStream outputStream = new FileOutputStream("save.txt");
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
-        try {
-            available = true;
-            outputStream = new FileOutputStream("save.txt");
-            outputStream.write(null);
+        outputStream.write(null);
 
-            File file = new File("savegames/save.txt");
-            bufferedReader = new BufferedReader(new FileReader(file));
-            bufferedReader.read();
+        bufferedReader.read();
 
-        } catch (Exception e) {
-            available = false;
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
+        if (bufferedReader != null) {
+            bufferedReader.close();
         }
-
-        return available;
+        if (outputStream != null) {
+            outputStream.close();
+        }
     }
 }

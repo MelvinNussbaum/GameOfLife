@@ -15,6 +15,6 @@ public interface ISaveManager {
 
     void loadGame() throws Exception;
 
-    boolean testAvailability();
+    void testAvailability() throws Exception;
 
 }
