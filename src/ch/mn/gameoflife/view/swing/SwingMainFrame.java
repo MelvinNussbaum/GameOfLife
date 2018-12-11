@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -77,7 +78,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         try {
             saveListener = new SaveListener(cells);
-        } catch (Throwable e) {
+        } catch (InstantiationException | IllegalAccessException | IOException e) {
             String errorMessage = rBundle.getString("dataBaseConnectionException");
             JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
