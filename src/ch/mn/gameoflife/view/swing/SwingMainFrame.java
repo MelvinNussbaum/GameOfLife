@@ -30,8 +30,6 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private static final long serialVersionUID = 2978608857717274514L;
 
-    private boolean databaseConnected = true;
-
     private GameThread gameThread = new GameThread(this);
 
     private Cell[][] cells = gameThread.getCellController().getCells();
@@ -80,7 +78,6 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         try {
             saveListener = new SaveListener(cells);
         } catch (Throwable e) {
-            databaseConnected = false;
             String errorMessage = rBundle.getString("dataBaseConnectionException");
             JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -149,12 +146,10 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(settingsButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        if (databaseConnected) {
-            controlPanel.add(saveButton);
-            controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-            controlPanel.add(loadButton);
-            controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        }
+        controlPanel.add(saveButton);
+        controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        controlPanel.add(loadButton);
+        controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(generationCounterLabel);
         controlPanel.add(Box.createVerticalGlue());
 
