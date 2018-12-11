@@ -42,7 +42,7 @@ public class LocalFileSystemManager extends AbstractSafeManager {
     @Override
     public void loadGame() throws IOException {
 
-        File file = new File("save.txt");
+        File file = new File("savegames/save.txt");
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
         for (Cell[] celCol : cells) {
