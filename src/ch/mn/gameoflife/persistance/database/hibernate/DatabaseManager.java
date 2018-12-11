@@ -17,9 +17,9 @@ import org.hibernate.cfg.Configuration;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.persistance.AbstractSafeManager;
+import ch.mn.gameoflife.persistance.AbstractSaveManager;
 
-public class DatabaseManager extends AbstractSafeManager {
+public class DatabaseManager extends AbstractSaveManager {
 
     private static SessionFactory factory;
 
@@ -27,7 +27,7 @@ public class DatabaseManager extends AbstractSafeManager {
 
     public DatabaseManager() throws Throwable {
 
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        factory = new Configuration().configure().buildSessionFactory();
         fillDatabase();
     }
 
@@ -149,10 +149,36 @@ public class DatabaseManager extends AbstractSafeManager {
     public int countCells() {
 
         Session session = factory.openSession();
-
         int rowCount = ((Number) session.createQuery("select count(*) from Cell").uniqueResult()).intValue();
-
+        session.close();
         return rowCount;
     }
 
+    @Override
+    public boolean testAvailability() {
+
+        boolean available;
+        Session session = null;
+        Transaction tx = null;
+
+        try {
+            SessionFactory factory = new Configuration().configure().buildSessionFactory();
+            session = factory.openSession();
+            tx = session.beginTransaction();
+            tx.commit();
+            available = true;
+        } catch (Exception e) {
+            available = false;
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
+        }
+
+        return available;
+    }
 }

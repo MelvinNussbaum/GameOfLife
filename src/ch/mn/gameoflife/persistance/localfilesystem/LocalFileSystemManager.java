@@ -16,13 +16,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.persistance.AbstractSafeManager;
+import ch.mn.gameoflife.persistance.AbstractSaveManager;
 
-public class LocalFileSystemManager extends AbstractSafeManager {
-
-    public LocalFileSystemManager() {
-        // TODO Auto-generated constructor stub
-    }
+public class LocalFileSystemManager extends AbstractSaveManager {
 
     @Override
     public void saveGame() throws IOException {
@@ -52,5 +48,43 @@ public class LocalFileSystemManager extends AbstractSafeManager {
                 cell.setAlive(aliveString == "1" ? true : false);
             }
         }
+    }
+
+    @Override
+    public boolean testAvailability() {
+
+        boolean available;
+        FileOutputStream outputStream = null;
+        BufferedReader bufferedReader = null;
+
+        try {
+            available = true;
+            outputStream = new FileOutputStream("save.txt");
+            outputStream.write(null);
+
+            File file = new File("savegames/save.txt");
+            bufferedReader = new BufferedReader(new FileReader(file));
+            bufferedReader.read();
+
+        } catch (Exception e) {
+            available = false;
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+
+        return available;
     }
 }
