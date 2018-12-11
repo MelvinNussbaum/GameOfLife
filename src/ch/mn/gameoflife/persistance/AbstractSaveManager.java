@@ -11,17 +11,12 @@ package ch.mn.gameoflife.persistance;
 
 import ch.mn.gameoflife.model.Cell;
 
-public abstract class AbstractSafeManager implements ISafeManager {
+public abstract class AbstractSaveManager implements ISaveManager {
 
     protected Cell[][] cells;
 
-    public AbstractSafeManager() {
+    public AbstractSaveManager() {
 
-    }
-
-    public <T extends AbstractSafeManager> T getImplementation(Class<T> type) {
-
-        return null;
     }
 
     public Cell[][] getCells() {
