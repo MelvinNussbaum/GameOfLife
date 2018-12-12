@@ -23,7 +23,7 @@ public class LocalFileSystemManager extends AbstractSaveManager {
     @Override
     public void saveGame() throws IOException {
 
-        FileOutputStream outputStream = new FileOutputStream("save.txt");
+        FileOutputStream outputStream = new FileOutputStream("savegames/save.txt");
 
         for (Cell[] celCol : cells) {
             for (Cell cell : celCol) {
@@ -54,10 +54,8 @@ public class LocalFileSystemManager extends AbstractSaveManager {
     public void testAvailability() throws IOException {
 
         File file = new File("savegames/save.txt");
-        FileOutputStream outputStream = new FileOutputStream("save.txt");
+        FileOutputStream outputStream = new FileOutputStream("savegames/save.txt");
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-
-        outputStream.write(null);
 
         bufferedReader.read();
 
