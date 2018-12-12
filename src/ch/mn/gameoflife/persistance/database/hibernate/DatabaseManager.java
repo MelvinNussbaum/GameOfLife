@@ -7,31 +7,29 @@
  * work including confidential and proprietary information of Allianz-Suisse.
  *
  ******************************************************************************/
-package ch.mn.gameoflife.hibernate;
+package ch.mn.gameoflife.persistance.database.hibernate;
 
-import java.util.ResourceBundle;
+import java.net.ConnectException;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
-import ch.mn.gameoflife.utils.DatabaseConnection;
-import ch.mn.gameoflife.utils.Language;
+import ch.mn.gameoflife.persistance.AbstractSaveManager;
 
-public class ManageCell {
+public class DatabaseManager extends AbstractSaveManager {
 
-    private static SessionFactory factory;
+    private SessionFactory factory;
 
     int cellAmount = GameGridController.GRIDCOLS * GameGridController.GRIDROWS;
 
-    ResourceBundle rBundle = Language.getResourceBundle();
+    public DatabaseManager() throws ConnectException {
 
-    public ManageCell() throws Throwable {
-
-        factory = DatabaseConnection.getDatabaseConnection();
+        factory = new Configuration().configure().buildSessionFactory();
         fillDatabase();
     }
 
@@ -46,13 +44,33 @@ public class ManageCell {
                 }
             }
         } else if (countCells() > cellAmount) {
-            int tempCountCells = countCells();
-            for (int i = cellAmount; i < tempCountCells; i++) {
+            int tempCellCount = countCells();
+            for (int i = cellAmount; i < tempCellCount; i++) {
                 try {
                     deleteCell(i);
                 } catch (Exception e) {
                     System.out.println("Cell with id=" + i + " doesn't exist in the database, so can't be deleted.");
                 }
+            }
+        }
+    }
+
+    @Override
+    public void saveGame() throws Exception {
+
+        for (Cell[] celCol : cells) {
+            for (Cell cell : celCol) {
+                updateCell(cell.getId(), cell.getAlive());
+            }
+        }
+    }
+
+    @Override
+    public void loadGame() throws Exception {
+
+        for (Cell[] celCol : cells) {
+            for (Cell cell : celCol) {
+                cell.setAlive(readCell(cell.getId()));
             }
         }
     }
@@ -132,9 +150,25 @@ public class ManageCell {
     public int countCells() {
 
         Session session = factory.openSession();
-
         int rowCount = ((Number) session.createQuery("select count(*) from Cell").uniqueResult()).intValue();
-
+        session.close();
         return rowCount;
+    }
+
+    @Override
+    public void testAvailability() throws ConnectException {
+
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        tx.commit();
+
+        if (tx != null) {
+            tx.rollback();
+        }
+        if (session != null) {
+            session.close();
+        }
+
     }
 }

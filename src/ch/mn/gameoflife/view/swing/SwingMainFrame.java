@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -29,8 +30,6 @@ import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
 public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private static final long serialVersionUID = 2978608857717274514L;
-
-    private boolean databaseConnected = true;
 
     private GameThread gameThread = new GameThread(this);
 
@@ -79,8 +78,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         try {
             saveListener = new SaveListener(cells);
-        } catch (Throwable e) {
-            databaseConnected = false;
+        } catch (InstantiationException | IllegalAccessException | IOException e) {
             String errorMessage = rBundle.getString("dataBaseConnectionException");
             JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -149,12 +147,10 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(settingsButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        if (databaseConnected) {
-            controlPanel.add(saveButton);
-            controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-            controlPanel.add(loadButton);
-            controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        }
+        controlPanel.add(saveButton);
+        controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        controlPanel.add(loadButton);
+        controlPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         controlPanel.add(generationCounterLabel);
         controlPanel.add(Box.createVerticalGlue());
 

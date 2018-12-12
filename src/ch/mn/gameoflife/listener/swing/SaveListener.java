@@ -11,22 +11,32 @@ package ch.mn.gameoflife.listener.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.ConnectException;
 
 import javax.swing.JOptionPane;
 
-import ch.mn.gameoflife.controller.SaveController;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.persistance.AbstractSaveManager;
+import ch.mn.gameoflife.persistance.database.hibernate.DatabaseManager;
+import ch.mn.gameoflife.persistance.utils.SaveManagerFactory;
 import ch.mn.gameoflife.utils.Language;
 
 public class SaveListener implements ActionListener {
 
-    private SaveController saveController;
+    private AbstractSaveManager safeManager;
 
     private Cell[][] cells;
 
-    public SaveListener(Cell[][] cells) throws Throwable {
+    public SaveListener(Cell[][] cells) throws InstantiationException, IllegalAccessException, IOException {
+        this.safeManager = SaveManagerFactory.getImplementation();
         this.cells = cells;
-        saveController = new SaveController(cells);
+
+        this.safeManager.setCells(this.cells);
+
+        if (!safeManager.getClass().equals(DatabaseManager.class)) {
+            throw new ConnectException();
+        }
     }
 
     @Override
@@ -34,15 +44,27 @@ public class SaveListener implements ActionListener {
 
         switch (ae.getActionCommand()) {
             case "save":
-                saveController.saveGame();
-                String saveMessage = Language.getResourceBundle().getString("saveSuccessful");
-                JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    safeManager.saveGame();
+                    String saveMessage = Language.getResourceBundle().getString("saveSuccessful");
+                    JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e1) {
+                    String saveMessage = Language.getResourceBundle().getString("saveUnsuccessful");
+                    JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
+                }
                 break;
 
             case "load":
-                saveController.loadGame();
-                String loadMessage = Language.getResourceBundle().getString("loadSuccessful");
-                JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    safeManager.loadGame();
+                    String loadMessage = Language.getResourceBundle().getString("loadSuccessful");
+                    JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e1) {
+                    String loadMessage = Language.getResourceBundle().getString("loadUnsuccessful");
+                    JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
+                }
                 break;
 
             default:
