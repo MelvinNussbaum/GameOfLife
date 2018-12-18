@@ -12,7 +12,6 @@ package ch.mn.gameoflife.listener.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.ConnectException;
 
 import javax.swing.JOptionPane;
 
@@ -33,10 +32,6 @@ public class SaveListener implements ActionListener {
         this.cells = cells;
 
         this.safeManager.setCells(this.cells);
-
-        if (!safeManager.getClass().equals(DatabaseManager.class)) {
-            throw new ConnectException();
-        }
     }
 
     @Override
@@ -72,4 +67,12 @@ public class SaveListener implements ActionListener {
         }
     }
 
+    public boolean isDatabase() {
+
+        if (!safeManager.getClass().equals(DatabaseManager.class)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
