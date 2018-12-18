@@ -45,7 +45,7 @@ public class LocalFileSystemManager extends AbstractSaveManager {
             for (Cell cell : celCol) {
                 int asciiValue = bufferedReader.read();
                 String aliveString = Character.toString((char) asciiValue);
-                cell.setAlive(aliveString == "1" ? true : false);
+                cell.setAlive(aliveString.equals("1") ? true : false);
             }
         }
     }
