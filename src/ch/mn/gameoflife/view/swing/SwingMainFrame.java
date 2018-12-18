@@ -78,8 +78,12 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         try {
             saveListener = new SaveListener(cells);
+            if (!saveListener.isDatabase()) {
+                String errorMessage = rBundle.getString("dataBaseConnectionException");
+                JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (InstantiationException | IllegalAccessException | IOException e) {
-            String errorMessage = rBundle.getString("dataBaseConnectionException");
+            String errorMessage = rBundle.getString("noSavingOptionsException");
             JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
