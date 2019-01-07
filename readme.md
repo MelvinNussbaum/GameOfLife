@@ -2,7 +2,7 @@
 ## Abstract
 Das Spiel „Game of Life“ basiert auf der gleichnamigen Idee von John Horton Conway. Das Spielfeld besteht aus einem Gitter einzelner quadratischer Zellen. Jede Zelle kann tot oder lebendig sein. Vier simple Regeln entscheiden über diesen Zustand einer Zelle. Dies hängt von dem Zustand seiner direkten acht Nachbarn ab.
 ## Regeln
-Die Regeln lassen sich über die EInstellungen während Runtime ändern.<br>
+Die Regeln lassen sich über die Einstellungen während Runtime ändern.<br>
 Die Standardregeln sind:<br>
 Falls eine Zelle tot ist, kann sie nur wieder lebendig werden, wenn sie genau drei lebendige Nachbarn hat. Ist die Zelle lebendig, wird sie sterben, wenn weniger als 2 oder mehr als 3 Nachbarn hat. Beudeutet, dass eine lebendige Zelle mit 2 oder 3 Nachbarn ihren Zustand nicht verändern wird.
 ## Models
@@ -63,6 +63,7 @@ Dieser erbt vom MouseAdapter. Er verarbeitet ein mousePressed() und ein mouseDra
 ### SaveListener
 Im Konstruktor wird vom SaveManagerFactory eine verfügbare SaveManager-Implementierung bereitgestellt. Bei einem load/save wird dann über das Interface ISafeManager die Aktion durchgeführt.
 ### RuleButtonListener
+Wird im SwingNewRuleDialog and den zwei Buttons für das sichern der Regeleingaben oder Standardregeln hinzugefügt.
 ## Thread
 ### GameThread
 Dieser Thread arbeitet das Spielgeschehen ab. 
@@ -77,3 +78,26 @@ Mit dem Constant GENERATION_TIME_MILLIS wird die Simulationsgeschwindigkeit in M
 Hier führt der Thread die Methoden cellController.countAliveNeighbours() und cellControl-ler.judgeCells() ausgeführt, die zwei Methoden, welche das eigentliche Spielgeschehen berechnen.
 ##### checkGameOver()
 Wird ebenfalls in run() ausgeführt und geht durch alle Zellen durch, bis er eine Lebende gefunden hat. Falls alle Zellen tot sind, ändert er gameOver und paused auf true und der Thread unterbricht das Spielgeschehen.
+## Persistence
+Es ist möglich den Spielstand auf einer verbundenen Datenbank oder auf dem Speichersystem zu speichern und zu laden.
+### ISaveManager
+Das Interface von welchen alle Speichermöglichkeiten ihre 3 Standard-Methoden:
+ * saveGame() : void
+ * loadGame() : void
+ * testAvailability : void
+### AbstractSaveManager
+Diese abstrakte Klasse implementiert ISaveManager. Dazu kommt noch ein Cell[][]-Attribut und dazu gehörige Getter und Setter.
+### SaveManager Implementierungen
+#### LocalFileSystemManager
+Erbt von AbstractSaveManager und implementiert die Methoden von ISaveManager. Um den Spielstand in einem File abspeichern zu können, schreibt das Programm in ein Textfile. Für jede lebende Zelle eine "1" und für eine tote eine "0". Welches beim Laden wiederum gelesen wird.
+#### DatabaseManager
+Erbt von AbstractSaveManager und implementiert die Methoden von ISaveManager. Der Spielstand wird in einer Tabelle auf einer Datenbank gespeichert. Dabei stellt eine Datenbankzeile eine Zelle im Spiel da. In der ersten Datenbankspalte ist die CellId gespeichert und in der zweiten ein Boolean, ob die Zelle lebt oder nicht.
+#### Hibernate
+Dabei wird die Hibernate-Technologie verwendet. Das Model Cell wird gemappt und direkt in die Datenbank gespeichert.
+### SaveManagerFactory
+Testet die Anwendung der verschiedenen Speichermöglichkeiten und gibt eine funktionierende SaveManager-Implementierung zurück.
+## Internationalisierung
+Mit Hilfe dem ResourceBundle und des Locales werden die korrekten Übersetzungen aus den jeweiligen MessagesBundle-Properties geholt.
+ * MessagesBundle_de.properties
+ * MessagesBundle_en.properties
+ * MessagesBundle.properties
