@@ -92,7 +92,7 @@ Diese abstrakte Klasse implementiert ISaveManager. Dazu kommt noch ein Cell[][]-
 Erbt von AbstractSaveManager und implementiert die Methoden von ISaveManager. Um den Spielstand in einem File abspeichern zu können, schreibt das Programm in ein Textfile. Für jede lebende Zelle eine "1" und für eine tote eine "0". Welches beim Laden wiederum gelesen wird.
 #### DatabaseManager
 Erbt von AbstractSaveManager und implementiert die Methoden von ISaveManager. Der Spielstand wird in einer Tabelle auf einer Datenbank gespeichert. Dabei stellt eine Datenbankzeile eine Zelle im Spiel da. In der ersten Datenbankspalte ist die CellId gespeichert und in der zweiten ein Boolean, ob die Zelle lebt oder nicht.
-#### Hibernate
+##### Hibernate
 Dabei wird die Hibernate-Technologie verwendet. Das Model Cell wird gemappt und direkt in die Datenbank gespeichert.
 ### SaveManagerFactory
 Testet die Anwendung der verschiedenen Speichermöglichkeiten und gibt eine funktionierende SaveManager-Implementierung zurück.
