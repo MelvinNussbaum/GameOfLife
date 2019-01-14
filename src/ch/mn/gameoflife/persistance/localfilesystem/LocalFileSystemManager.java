@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * [ JsonWR.java ]
+ * [ LocalFileSystemManager.java ]
  *
  * COPYRIGHT (c) 2002 - 2018 by Allianz-Suisse, Zürich, Switzerland.
  * All rights reserved. This material contains unpublished, copyrighted
@@ -23,7 +23,7 @@ public class LocalFileSystemManager extends AbstractSaveManager {
     @Override
     public void saveGame() throws IOException {
 
-        FileOutputStream outputStream = new FileOutputStream("save.txt");
+        FileOutputStream outputStream = new FileOutputStream("savegames/save.txt");
 
         for (Cell[] celCol : cells) {
             for (Cell cell : celCol) {
@@ -45,7 +45,7 @@ public class LocalFileSystemManager extends AbstractSaveManager {
             for (Cell cell : celCol) {
                 int asciiValue = bufferedReader.read();
                 String aliveString = Character.toString((char) asciiValue);
-                cell.setAlive(aliveString == "1" ? true : false);
+                cell.setAlive(aliveString.equals("1") ? true : false);
             }
         }
     }
@@ -54,10 +54,8 @@ public class LocalFileSystemManager extends AbstractSaveManager {
     public void testAvailability() throws IOException {
 
         File file = new File("savegames/save.txt");
-        FileOutputStream outputStream = new FileOutputStream("save.txt");
+        FileOutputStream outputStream = new FileOutputStream("savegames/save.txt");
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-
-        outputStream.write(null);
 
         bufferedReader.read();
 

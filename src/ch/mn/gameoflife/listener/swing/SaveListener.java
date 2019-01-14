@@ -12,7 +12,6 @@ package ch.mn.gameoflife.listener.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.ConnectException;
 
 import javax.swing.JOptionPane;
 
@@ -33,10 +32,6 @@ public class SaveListener implements ActionListener {
         this.cells = cells;
 
         this.safeManager.setCells(this.cells);
-
-        if (!safeManager.getClass().equals(DatabaseManager.class)) {
-            throw new ConnectException();
-        }
     }
 
     @Override
@@ -48,10 +43,10 @@ public class SaveListener implements ActionListener {
                     safeManager.saveGame();
                     String saveMessage = Language.getResourceBundle().getString("saveSuccessful");
                     JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e1) {
+                } catch (Exception e) {
                     String saveMessage = Language.getResourceBundle().getString("saveUnsuccessful");
                     JOptionPane.showMessageDialog(null, saveMessage, null, JOptionPane.ERROR_MESSAGE);
-                    e1.printStackTrace();
+                    e.printStackTrace();
                 }
                 break;
 
@@ -60,10 +55,10 @@ public class SaveListener implements ActionListener {
                     safeManager.loadGame();
                     String loadMessage = Language.getResourceBundle().getString("loadSuccessful");
                     JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e1) {
+                } catch (Exception e) {
                     String loadMessage = Language.getResourceBundle().getString("loadUnsuccessful");
                     JOptionPane.showMessageDialog(null, loadMessage, null, JOptionPane.ERROR_MESSAGE);
-                    e1.printStackTrace();
+                    e.printStackTrace();
                 }
                 break;
 
@@ -72,4 +67,12 @@ public class SaveListener implements ActionListener {
         }
     }
 
+    public boolean isDatabase() {
+
+        if (!safeManager.getClass().equals(DatabaseManager.class)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
