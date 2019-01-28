@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -15,7 +14,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -75,18 +73,6 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     @Override
     public void buildGUI() {
-
-        try {
-            saveListener = new SaveListener(cells);
-            if (!saveListener.isDatabase()) {
-                String errorMessage = rBundle.getString("dataBaseConnectionException");
-                JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (InstantiationException | IllegalAccessException | IOException e) {
-            String errorMessage = rBundle.getString("noSavingOptionsException");
-            JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
 
         gameOfLifeLabel.setText(rBundle.getString("gameOfLife"));
         settingsButton.setText(rBundle.getString("settings"));
