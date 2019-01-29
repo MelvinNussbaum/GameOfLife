@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * [ CreateCell.java ]
+ * [ UpdateCell.java ]
  *
  * COPYRIGHT (c) 2002 - 2019 by Allianz-Suisse, Zürich, Switzerland.
  * All rights reserved. This material contains unpublished, copyrighted
@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
 
 import ch.mn.gameoflife.model.Cell;
 
-public class CreateCell {
+public class UpdateCell {
 
     public static void main(String[] args) {
 
@@ -23,13 +23,10 @@ public class CreateCell {
         EntityManager entitymanager = cellFactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
-        Cell cell = new Cell();
-        cell.setId(1);
-        cell.setAlive(false);
+        Cell cell = entitymanager.find(Cell.class, 1);
+        cell.setAlive(true);
 
-        entitymanager.persist(cell);
         entitymanager.getTransaction().commit();
-
         entitymanager.close();
         cellFactory.close();
     }

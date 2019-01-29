@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * [ CreateCell.java ]
+ * [ ReadCell.java ]
  *
  * COPYRIGHT (c) 2002 - 2019 by Allianz-Suisse, Zürich, Switzerland.
  * All rights reserved. This material contains unpublished, copyrighted
@@ -15,22 +15,17 @@ import javax.persistence.Persistence;
 
 import ch.mn.gameoflife.model.Cell;
 
-public class CreateCell {
+public class ReadCell {
 
     public static void main(String[] args) {
 
         EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
-        EntityManager entitymanager = cellFactory.createEntityManager();
-        entitymanager.getTransaction().begin();
+        EntityManager entityManager = cellFactory.createEntityManager();
 
-        Cell cell = new Cell();
-        cell.setId(1);
-        cell.setAlive(false);
+        Cell cell = entityManager.find(Cell.class, 1);
 
-        entitymanager.persist(cell);
-        entitymanager.getTransaction().commit();
-
-        entitymanager.close();
+        entityManager.close();
         cellFactory.close();
     }
+
 }
