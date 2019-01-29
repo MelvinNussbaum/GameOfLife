@@ -18,13 +18,16 @@ import ch.mn.gameoflife.model.Cell;
 
 public class DatabaseManager {
 
-    public DatabaseManager() {
+    private String persistentUnit;
+
+    public DatabaseManager(String persistentUnit) {
         super();
+        this.persistentUnit = persistentUnit;
     }
 
     public void createCellGrid() {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entitymanager = cellFactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
@@ -41,7 +44,7 @@ public class DatabaseManager {
 
     public Cell[][] readCells() {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entityManager = cellFactory.createEntityManager();
 
         Cell[][] cellA = new Cell[GameGridController.GRIDCOLS][GameGridController.GRIDROWS];
@@ -62,7 +65,7 @@ public class DatabaseManager {
 
     private void updateCell(Cell cell) {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entitymanager = cellFactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
@@ -76,7 +79,7 @@ public class DatabaseManager {
 
     public void deleteCellGrid(int cellID) {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entityManager = cellFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
@@ -88,4 +91,8 @@ public class DatabaseManager {
         cellFactory.close();
     }
 
+    public void setPersistentUnit(String persistentUnit) {
+
+        this.persistentUnit = persistentUnit;
+    }
 }
