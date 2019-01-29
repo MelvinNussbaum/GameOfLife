@@ -12,6 +12,7 @@ package ch.mn.gameoflife.persistence.service;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
@@ -20,14 +21,16 @@ public class DatabaseManager {
 
     private String persistentUnit;
 
+    private EntityManagerFactory cellFactory;
+
     public DatabaseManager(String persistentUnit) {
         super();
         this.persistentUnit = persistentUnit;
+        this.cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
     }
 
     public void createCellGrid() {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entitymanager = cellFactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
@@ -44,7 +47,6 @@ public class DatabaseManager {
 
     public Cell[][] readCells() {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entityManager = cellFactory.createEntityManager();
 
         Cell[][] cellA = new Cell[GameGridController.GRIDCOLS][GameGridController.GRIDROWS];
@@ -65,7 +67,6 @@ public class DatabaseManager {
 
     private void updateCell(Cell cell) {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entitymanager = cellFactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
@@ -77,14 +78,13 @@ public class DatabaseManager {
         cellFactory.close();
     }
 
-    public void deleteCellGrid(int cellID) {
+    public void deleteCellGrid() {
 
-        EntityManagerFactory cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
         EntityManager entityManager = cellFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
-        Cell cell = entityManager.find(Cell.class, cellID);
-        entityManager.remove(cell);
+        Query query = entityManager.createQuery("DELETE FROM Cell");
+        query.executeUpdate();
 
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -94,5 +94,6 @@ public class DatabaseManager {
     public void setPersistentUnit(String persistentUnit) {
 
         this.persistentUnit = persistentUnit;
+        this.cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
     }
 }
