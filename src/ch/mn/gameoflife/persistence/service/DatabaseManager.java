@@ -52,11 +52,12 @@ public class DatabaseManager {
 
         Cell[][] cellA = new Cell[GameGridController.GRIDCOLS][GameGridController.GRIDROWS];
 
+        long idCounter = 1;
         for (int i = 0; i < cellA.length; i++) {
             Cell[] cellCol = cellA[i];
             for (int j = 0; j < cellCol.length; j++) {
-                Cell cell = cellCol[j];
-                cellA[i][j] = entityManager.find(Cell.class, cell.getId());
+                cellA[i][j] = entityManager.find(Cell.class, idCounter);
+                idCounter++;
             }
         }
 
