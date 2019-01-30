@@ -5,25 +5,20 @@ import java.io.Serializable;
 import ch.mn.gameoflife.controller.CellController;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.model.GameModel;
 import ch.mn.gameoflife.view.interfaces.IMainFrame;
 
 public class GameThread extends Thread implements Runnable, Serializable {
 
     private static final long serialVersionUID = -3332944283162129482L;
 
-    public static final int GENERATION_TIME_MILLIS = 1000 / 18;
-
-    private int generationCounter = 0;
-
-    private boolean paused = true;
-
-    private boolean gameOver = false;
+    private GameModel model;
 
     private IMainFrame mainFrame;
 
     private GameGridController gridController = new GameGridController();
 
-    private CellController cellController = new CellController();
+    private CellController cellController;
 
     public GameThread(IMainFrame mainFrame) {
         super();
@@ -35,15 +30,15 @@ public class GameThread extends Thread implements Runnable, Serializable {
 
         super.run();
         while (!interrupted()) {
-            while (!gameOver) {
-                while (!paused) {
+            while (!model.isGameOver()) {
+                while (!model.isPaused()) {
                     cellController.countAliveNeighbours();
                     cellController.judgeCells();
-                    generationCounter++;
+                    model.setGenerationCounter(model.getGenerationCounter() + 1);
                     checkGameOver();
                     mainFrame.updateGUI();
                     try {
-                        wait(GENERATION_TIME_MILLIS);
+                        wait(GameModel.GENERATION_TIME_MILLIS);
                     } catch (InterruptedException e) {
                         interrupt();
                     }
@@ -64,18 +59,45 @@ public class GameThread extends Thread implements Runnable, Serializable {
                 }
             }
         }
-        gameOver = true;
-        paused = true;
+        model.setGameOver(true);
+        model.setPaused(true);
     }
 
-    public boolean isPaused() {
+    public void resetGame() {
 
-        return paused;
+        getCellController().killAllCells();
+        model.setGenerationCounter(0);
+        model.setPaused(true);
+        model.setGameOver(false);
     }
 
-    public void setPaused(boolean paused) {
+    public void startGame() {
 
-        this.paused = paused;
+        if (model.isGameOver()) {
+            model.setGameOver(false);
+            model.setGenerationCounter(0);
+        }
+        model.setPaused(false);
+    }
+
+    public void pauseGame() {
+
+        model.setPaused(true);
+    }
+
+    public GameModel getModel() {
+
+        return model;
+    }
+
+    public void setModel(GameModel model) {
+
+        this.model = model;
+    }
+
+    public void setCellController(CellController cellController) {
+
+        this.cellController = cellController;
     }
 
     public CellController getCellController() {
@@ -87,25 +109,4 @@ public class GameThread extends Thread implements Runnable, Serializable {
 
         return gridController;
     }
-
-    public int getGenerationCounter() {
-
-        return generationCounter;
-    }
-
-    public void setGenerationCounter(int generationCounter) {
-
-        this.generationCounter = generationCounter;
-    }
-
-    public boolean isGameOver() {
-
-        return gameOver;
-    }
-
-    public void setGameOver(boolean gameOver) {
-
-        this.gameOver = gameOver;
-    }
-
 }
