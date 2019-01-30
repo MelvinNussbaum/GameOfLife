@@ -12,26 +12,26 @@ package ch.mn.gameoflife.listener.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ch.mn.gameoflife.controller.CellController;
 import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.model.CellGrid;
 import ch.mn.gameoflife.persistence.service.DatabaseManager;
 
 public class LoadListener implements ActionListener {
 
     private DatabaseManager dbManager;
 
-    private Cell[][] cells;
+    private CellGrid cellGrid;
 
-    public LoadListener(CellController cellController) {
-        this.cells = cells;
+    public LoadListener(CellGrid cellGrid) {
+        this.cellGrid = cellGrid;
         this.dbManager = new DatabaseManager("Hibernate_JPA");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        dbManager.readCells();
-
+        Cell[][] newCells = dbManager.readCells();
+        cellGrid.updateCells(newCells);
     }
 
 }
