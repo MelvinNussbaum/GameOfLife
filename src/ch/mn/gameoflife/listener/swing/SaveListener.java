@@ -23,7 +23,7 @@ public class SaveListener implements ActionListener {
 
     public SaveListener(Cell[][] cells) {
         this.cells = cells;
-        this.dbManager = new DatabaseManager("Hibernate_JPA");
+        this.dbManager = new DatabaseManager();
     }
 
     @Override

@@ -21,14 +21,13 @@ import ch.mn.gameoflife.model.Cell;
 
 public class DatabaseManager {
 
-    private String persistentUnit;
+    public static String PERSISTENT_UNIT = "Hibernate_JPA";
 
     private EntityManagerFactory cellFactory;
 
-    public DatabaseManager(String persistentUnit) {
+    public DatabaseManager() {
         super();
-        this.persistentUnit = persistentUnit;
-        this.cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
+        this.cellFactory = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
     }
 
     public void createCellGrid() {
@@ -106,7 +105,7 @@ public class DatabaseManager {
 
     public void setPersistentUnit(String persistentUnit) {
 
-        this.persistentUnit = persistentUnit;
-        this.cellFactory = Persistence.createEntityManagerFactory(this.persistentUnit);
+        DatabaseManager.PERSISTENT_UNIT = persistentUnit;
+        this.cellFactory = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
     }
 }

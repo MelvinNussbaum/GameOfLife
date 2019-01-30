@@ -24,7 +24,7 @@ public class LoadListener implements ActionListener {
 
     public LoadListener(CellGrid cellGrid) {
         this.cellGrid = cellGrid;
-        this.dbManager = new DatabaseManager("Hibernate_JPA");
+        this.dbManager = new DatabaseManager();
     }
 
     @Override
