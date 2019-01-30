@@ -10,11 +10,11 @@ public class GameActionListener implements ActionListener, Serializable {
 
     private static final long serialVersionUID = 1802162015334332822L;
 
-    private GameThread gameThread;
+    private GameThread thread;
 
-    public GameActionListener(GameThread gameThread) {
+    public GameActionListener(GameThread thread) {
         super();
-        this.gameThread = gameThread;
+        this.thread = thread;
     }
 
     @Override
@@ -22,20 +22,13 @@ public class GameActionListener implements ActionListener, Serializable {
 
         switch (e.getActionCommand()) {
             case "reset":
-                gameThread.getCellController().killAllCells();
-                gameThread.setGenerationCounter(0);
-                gameThread.setPaused(true);
-                gameThread.setGameOver(false);
+                thread.resetGame();
                 break;
             case "start":
-                if (gameThread.isGameOver()) {
-                    gameThread.setGameOver(false);
-                    gameThread.setGenerationCounter(0);
-                }
-                gameThread.setPaused(false);
+                thread.startGame();
                 break;
             case "pause":
-                gameThread.setPaused(true);
+                thread.pauseGame();
                 break;
             default:
                 break;
