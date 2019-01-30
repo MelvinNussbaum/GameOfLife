@@ -26,6 +26,16 @@ public class CellGrid {
         }
     }
 
+    public void updateCells(Cell[][] newCells) {
+
+        for (int i = 0; i < newCells.length; i++) {
+            Cell[] cellCol = newCells[i];
+            for (int j = 0; j < cellCol.length; j++) {
+                cells[i][j].setAlive(newCells[i][j].getAlive());
+            }
+        }
+    }
+
     public Cell[][] getCells() {
 
         return cells;
