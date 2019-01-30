@@ -21,7 +21,8 @@ import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.GameActionListener;
 import ch.mn.gameoflife.listener.swing.GridListener;
 import ch.mn.gameoflife.listener.swing.SaveListener;
-import ch.mn.gameoflife.model.Cell;
+import ch.mn.gameoflife.model.CellGrid;
+import ch.mn.gameoflife.model.GameModel;
 import ch.mn.gameoflife.thread.GameThread;
 import ch.mn.gameoflife.view.abstracts.AbstractSwingMainFrame;
 
@@ -29,9 +30,11 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private static final long serialVersionUID = 2978608857717274514L;
 
-    private GameThread gameThread = new GameThread(this);
+    private GameModel model;
 
-    private Cell[][] cells = gameThread.getCellController().getCells();
+    private CellGrid cellGrid;
+
+    private GameThread gameThread;
 
     private SwingCell[][] swingCells = new SwingCell[GameGridController.GRIDROWS][GameGridController.GRIDCOLS];
 
@@ -53,9 +56,9 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private JLabel generationCounterLabel = new JLabel("", SwingConstants.CENTER);
 
-    private GameActionListener gameActionListener = new GameActionListener(gameThread);
-
     private GridListener gridListener = new GridListener();
+
+    private GameActionListener gameActionListener;
 
     private SaveListener saveListener;
 
@@ -67,8 +70,6 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         this.setBackground(Color.GRAY);
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        buildGUI();
     }
 
     @Override
@@ -87,7 +88,7 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         gameGrid.addMouseListener(gridListener);
         gameGrid.addMouseMotionListener(gridListener);
 
-        drawGrid(cells, swingCells, gameGrid);
+        drawGrid(cellGrid.getCells(), swingCells, gameGrid);
 
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
         controlPanel.setPreferredSize(new Dimension(300, this.getHeight()));
@@ -99,6 +100,10 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         settingsButton.setActionCommand("newSettings");
         saveButton.setActionCommand("save");
         loadButton.setActionCommand("load");
+
+        gameActionListener = new GameActionListener(gameThread);
+        saveListener = new SaveListener(cellGrid.getCells());
+
         pauseStartButton.addActionListener(gameActionListener);
         resetButton.addActionListener(gameActionListener);
         saveButton.addActionListener(saveListener);
@@ -158,10 +163,30 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
                 swingCell.repaintCell();
             }
         }
-        generationCounterLabel.setText(rBundle.getString("generation") + ": " + gameThread.getGenerationCounter());
-        pauseStartButton.setText(gameThread.isPaused() ? rBundle.getString("start") : rBundle.getString("pause"));
-        pauseStartButton.setActionCommand(gameThread.isPaused() ? "start" : "pause");
+        generationCounterLabel.setText(rBundle.getString("generation") + ": " + model.getGenerationCounter());
+        pauseStartButton.setText(model.isPaused() ? rBundle.getString("start") : rBundle.getString("pause"));
+        pauseStartButton.setActionCommand(model.isPaused() ? "start" : "pause");
         pack();
+    }
+
+    public GameThread getGameThread() {
+
+        return gameThread;
+    }
+
+    public void setGameThread(GameThread gameThread) {
+
+        this.gameThread = gameThread;
+    }
+
+    public CellGrid getCellGrid() {
+
+        return cellGrid;
+    }
+
+    public void setCellGrid(CellGrid cellGrid) {
+
+        this.cellGrid = cellGrid;
     }
 
     public JButton getPausePlayButton() {
@@ -174,9 +199,14 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
         return generationCounterLabel;
     }
 
-    public GameThread getGameThread() {
+    public GameModel getModel() {
 
-        return gameThread;
+        return model;
+    }
+
+    public void setModel(GameModel model) {
+
+        this.model = model;
     }
 
     public ResourceBundle getResourceBundle() {
