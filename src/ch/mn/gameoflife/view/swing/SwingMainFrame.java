@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.listener.swing.GameActionListener;
 import ch.mn.gameoflife.listener.swing.GridListener;
+import ch.mn.gameoflife.listener.swing.LoadListener;
 import ch.mn.gameoflife.listener.swing.SaveListener;
 import ch.mn.gameoflife.model.CellGrid;
 import ch.mn.gameoflife.model.GameModel;
@@ -62,6 +63,8 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
     private SaveListener saveListener;
 
+    private LoadListener loadListener;
+
     public SwingMainFrame(String title) {
         super();
         this.setTitle(title);
@@ -103,11 +106,12 @@ public class SwingMainFrame extends AbstractSwingMainFrame {
 
         gameActionListener = new GameActionListener(gameThread);
         saveListener = new SaveListener(cellGrid.getCells());
+        loadListener = new LoadListener(cellGrid);
 
         pauseStartButton.addActionListener(gameActionListener);
         resetButton.addActionListener(gameActionListener);
         saveButton.addActionListener(saveListener);
-        loadButton.addActionListener(saveListener);
+        loadButton.addActionListener(loadListener);
         settingsButton.addActionListener(new ActionListener() {
 
             @Override
