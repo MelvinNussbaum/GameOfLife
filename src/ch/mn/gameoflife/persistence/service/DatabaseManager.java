@@ -13,6 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import ch.mn.gameoflife.controller.GameGridController;
 import ch.mn.gameoflife.model.Cell;
@@ -34,15 +36,14 @@ public class DatabaseManager {
         EntityManager entitymanager = cellFactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
-        for (int i = 0; i < GameGridController.GRIDCOLS * GameGridController.GRIDROWS; i++) {
-            Cell cell = new Cell();
+        for (long i = count() + 1; i <= GameGridController.GRIDCOLS * GameGridController.GRIDROWS; i++) {
+            Cell cell = new Cell(i);
             cell.setAlive(false);
             entitymanager.persist(cell);
         }
 
         entitymanager.getTransaction().commit();
         entitymanager.close();
-        cellFactory.close();
     }
 
     public Cell[][] readCells() {
@@ -60,22 +61,23 @@ public class DatabaseManager {
         }
 
         entityManager.close();
-        cellFactory.close();
-
         return cellA;
     }
 
-    private void updateCell(Cell cell) {
+    public void updateCells(Cell[][] cells) {
 
         EntityManager entitymanager = cellFactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
-        Cell updatedCell = entitymanager.find(Cell.class, cell.getId());
-        updatedCell.setAlive(!cell.getAlive());
+        for (Cell[] cellCol : cells) {
+            for (Cell cell : cellCol) {
+                Cell updatedCell = entitymanager.find(Cell.class, cell.getId());
+                updatedCell.setAlive(cell.getAlive());
+            }
+        }
 
         entitymanager.getTransaction().commit();
         entitymanager.close();
-        cellFactory.close();
     }
 
     public void deleteCellGrid() {
@@ -88,7 +90,17 @@ public class DatabaseManager {
 
         entityManager.getTransaction().commit();
         entityManager.close();
-        cellFactory.close();
+    }
+
+    public long count() {
+
+        EntityManager entityManager = cellFactory.createEntityManager();
+        CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+        cq.select(qb.count(cq.from(Cell.class)));
+        Long count = entityManager.createQuery(cq).getSingleResult();
+        entityManager.close();
+        return count;
     }
 
     public void setPersistentUnit(String persistentUnit) {
