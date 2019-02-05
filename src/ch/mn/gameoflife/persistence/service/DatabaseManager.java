@@ -21,7 +21,7 @@ import ch.mn.gameoflife.model.Cell;
 
 public class DatabaseManager {
 
-    public static String PERSISTENT_UNIT = "Hibernate_JPA";
+    public static String PERSISTENT_UNIT = "Eclipselink_JPA";
 
     private EntityManagerFactory cellFactory;
 
